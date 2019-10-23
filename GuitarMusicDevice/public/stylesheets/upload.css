@@ -1,0 +1,14 @@
+form {
+    margin: 0 auto;
+}
+
+@media (min-width: 1024px) {
+    form {
+        width: 800px;
+    }
+}
+
+form div {
+    margin-top: 50px;
+    margin-bottom: 50px;
+}

@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>포르텝</title>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.8.0/css/bulma.min.css">
+    <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <link rel="stylesheet" href="../stylesheets/index.css">
+    <link rel="stylesheet" href="../stylesheets/footer.css">
+  </head>
+  <body>
+    <nav class="navbar has-shadow is-spaced">
+      <div class="container">
+        <div class="navbar-brand">
+          <a class="navbar-item" href="index.html">
+            <img src="https://bulma.io/images/bulma-logo.png" width="112" height="28">
+          </a>
+
+          <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navbarMenu">
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+          </a>
+        </div>
+
+        <div id="navbarMenu" class="navbar-menu">
+          <div class="navbar-start">
+            <a class="navbar-item" href="#">
+              <span class="icon has-text-info">
+                <i class="fas fa-home fa-w-14"></i>
+              </span>
+              <span>Home</span>
+            </a>
+            <a class="navbar-item" href="#">
+              <span class="icon has-text-success">
+                <i class="fas fa-search"></i>
+              </span>
+              <span>Search</span>
+            </a>
+            <a class="navbar-item" href="#">
+              <span class="icon has-text-warning">
+                <i class="fas fa-upload"></i>
+              </span>
+              <span>Upload</span>
+            </a>
+            <div class="navbar-item had-dropdown  is-hoverable">
+              <a class="navbar-link" href="#">
+                More
+              </a>
+
+              <div class="navbar-dropdown">
+                <a class="navbar-item" href="#">About Us</a>
+                <a class="navbar-item" href="#">Contact</a>
+              </div>
+            </div>
+          </div>
+
+          <div class="navbar-end">
+            <div class="navbar-item">
+              <div class="buttons">
+                <a class="button is-primary" href="#">Login</a>
+                <a class="button is-danger" href="#">Sign up</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <section class="section is-medium">
+      <div class="container">
+        <div class="columns is-vcentered">
+          <div class="column">
+            <h1 class="title is-1" id="title1">
+              언제 어디서나<br />편하게 기타를 연습하세요!
+            </h1>
+          </div>
+          <div class="column has-text-centered">
+            <img src="../images/guitar.png" width="400" height=auto alt="기타">
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="hr">
+      <div class="container">
+        <hr>
+      </div>
+    </div>
+
+    <section class="section is-small">
+      <div class="container">
+        <div class="columns is-vcentered">
+          <div class="column">
+            <h1 class="title" id="title2">
+              불편하게 악보를 펼쳐 놓고<br />
+              기타를 연습하지 마세요<br />
+              ○○○을 사용하세요!
+            </h1>
+          </div>
+          <div class="column has-text-centered">
+            <img src="../images/guitarPlaying.png" width=auto height=auto alt="기타">
+          </div>
+        </div>
+        <h1 class="title has-text-centered" id="title3">
+          ○○○은 웹에서 동작하는 기타 반주기 프로그램입니다
+        </h1>
+      </div>
+    </section>
+
+    <div class="hr">
+      <div class="container">
+        <hr>
+      </div>
+    </div>
+
+    <section class="section is-small">
+      <div class="container">
+        <h1 class="title has-text-centered">
+          다음과 같은 것들을 할 수 있습니다!
+        </h1>
+        <div class="columns is-centered is-vcentered explain" data-aos="fade-up">
+          <div class="column is-two-fifths">
+            <h3 class="title is-4">기타 악보</h3>
+            <p class="subtitle">
+              웹에서 기타 악보를 그려서 보여줍니다!
+              일일히 기타 악보를 출력하거나
+              악보를 바닥이나 보면대에 놓고 연습할 필요 없이
+              그저 ㅇㅇㅇ에서 연습하고 싶은 곡을 찾아
+              선택하기만 하면 됩니다!
+            </p>
+          </div>
+          <div class="column is-two-fifths">
+            <img src="../images/GMD0.jpg">
+          </div>
+        </div>
+        <div class="columns is-centered is-vcentered explain" data-aos="fade-up">
+          <div class="column is-two-fifths">
+            <img src="../images/GMD1.gif">
+          </div>
+          <div class="column is-two-fifths">
+            <h3 class="title is-4">기타 반주 재생</h3>
+            <p class="subtitle">
+              기타 악보에 맞춰 반주를 재생할 수 있습니다.
+              반주를 들으면서 정확한 박자에 맞춰 연습하세요!
+            </p>
+            <div class="buttons is-centered">
+              <button class="button is-link is-outlined" onclick = "location.href = '/music' ">해보기</button>
+            </div>
+          </div>
+        </div>
+        <div class="columns is-centered is-vcentered explain" data-aos="fade-up">
+          <div class="column is-two-fifths">
+            <h3 class="title is-4">반복 재생</h3>
+            <p class="subtitle">
+              악보를 마우스로 드래그해 영역을 지정하고
+              반복 버튼을 눌러 반복을 활성화시킨 뒤 재생하면
+              해당 부분을 반복해서 재생할 수 있습니다.
+              안되는 부분을 계속해서 연습해보세요!
+            </p>
+          </div>
+          <div class="column is-two-fifths">
+            <img src="../images/GMD2.gif">
+          </div>
+        </div>
+        <div class="columns is-centered is-vcentered explain" data-aos="fade-up">
+          <div class="column is-two-fifths">
+            <img src="../images/GMD3.gif">
+          </div>
+          <div class="column is-two-fifths">
+            <h3 class="title is-4">속도 조절</h3>
+            <p class="subtitle">
+              속도가 빨라 연습하기 어려울 때는
+              하단의 Speed를 조절해 느린 박자로 연습해보세요!
+            </p>
+          </div>
+        </div>
+        <div class="columns is-centered is-vcentered explain" data-aos="fade-up">
+          <div class="column is-two-fifths">
+            <h3 class="title is-4">메트로눔</h3>
+            <p class="subtitle">
+              박자를 맞추기 어렵다면
+              하단의 메트로눔 버튼을 누르세요.
+              정확한 타이밍을 맞춰줍니다.
+            </p>
+          </div>
+          <div class="column is-two-fifths">
+            <img src="../images/GMD4.gif">
+          </div>
+        </div>
+        <div class="columns is-centered is-vcentered explain" data-aos="fade-up">
+          <div class="column is-two-fifths">
+            <img src="sample.png">
+          </div>
+          <div class="column is-two-fifths">
+            <h3 class="title is-4">업로드</h3>
+            <p class="subtitle">
+              기타 프로파일을 업로드하면
+              그에 맞는 악보를 그려서 보여주고
+              반주도 재생할 수 있습니다.
+            </p>
+            <div class="buttons is-centered">
+              <button class="button is-link is-outlined" onclick = "location.href = '/upload' ">해보기</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <div class="has-text-centered">
+        <small>&copy; Copyright 2019. Develop By Guardian_demoN & Lai_Khan</small>
+      </div>
+    </footer>
+
+    <script src="../javascripts/main.js"></script>
+  </body>
+</html>

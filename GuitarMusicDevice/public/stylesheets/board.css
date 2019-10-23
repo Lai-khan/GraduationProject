@@ -1,0 +1,24 @@
+form {
+    margin: 0 auto;
+}
+
+@media (min-width: 1024px) {
+    form {
+        width: 800px;
+    }
+}
+
+.pagination {
+    margin: 0 auto;
+    margin-top: 50px;
+    width: 800px;
+}
+
+.table {
+    margin: 0 auto;
+}
+
+th:nth-child(1) { width: 100px;}
+th:nth-child(2) { width: 400px;}
+th:nth-child(3) { width: 200px;}
+th:nth-child(4) { width: 150px;}

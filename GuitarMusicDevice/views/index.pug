@@ -1,5 +1,104 @@
-extends layout
-
-block content
-  h1= title
-  p Welcome to #{title}
+doctype html
+html
+  head
+    include head
+    link(href='https://unpkg.com/aos@2.3.1/dist/aos.css', rel='stylesheet', type='text/css')
+    script(src='https://unpkg.com/aos@2.3.1/dist/aos.js')
+  body
+    include nav
+    section.section.is-medium
+      .container
+        .columns.is-vcentered
+          .column
+            h1#title1.title.is-1
+              | 언제 어디서나
+              br
+              | 편하게 기타를 연습하세요!
+          .column.has-text-centered
+            img(src='/images/guitar.png', width='400', height='auto', alt='기타')
+    .hr
+      .container
+        hr
+    section.section.is-small
+      .container
+        .columns.is-vcentered
+          .column
+            h1#title2.title
+              | 불편하게 악보를 펼쳐 놓고
+              br
+              |               기타를 연습하지 마세요
+              br
+              |               ○○○을 사용하세요!
+          .column.has-text-centered
+            img(src='/images/guitarPlaying.png', width='auto', height='auto', alt='기타')
+        h1#title3.title.has-text-centered
+          | ○○○은 웹에서 동작하는 기타 반주기 프로그램입니다
+    .hr
+      .container
+        hr
+    section.section.is-small
+      .container
+        h1.title.has-text-centered
+          | 다음과 같은 것들을 할 수 있습니다!
+        .columns.is-centered.is-vcentered.explain(data-aos='fade-up')
+          .column.is-two-fifths
+            h3.title.is-4 기타 악보
+            p.subtitle
+              | 웹에서 기타 악보를 그려서 보여줍니다!
+              | 일일히 기타 악보를 출력하거나
+              | 악보를 바닥이나 보면대에 놓고 연습할 필요 없이
+              | 그저 ㅇㅇㅇ에서 연습하고 싶은 곡을 찾아
+              | 선택하기만 하면 됩니다!
+          .column.is-two-fifths
+            img(src='/images/GMD0.jpg')
+        .columns.is-centered.is-vcentered.explain(data-aos='fade-up')
+          .column.is-two-fifths
+            img(src='/images/GMD1.gif')
+          .column.is-two-fifths
+            h3.title.is-4 기타 반주 재생
+            p.subtitle
+              | 기타 악보에 맞춰 반주를 재생할 수 있습니다.
+              | 반주를 들으면서 정확한 박자에 맞춰 연습하세요!
+            div.buttons.is-centered
+              button.button.is-link.is-outlined(onclick="location.href = '/music' ") 해보기
+        .columns.is-centered.is-vcentered.explain(data-aos='fade-up')
+          .column.is-two-fifths
+            h3.title.is-4 반복 재생
+            p.subtitle
+              | 악보를 마우스로 드래그해 영역을 지정하고
+              | 반복 버튼을 눌러 반복을 활성화시킨 뒤 재생하면
+              | 해당 부분을 반복해서 재생할 수 있습니다.
+              | 안되는 부분을 계속해서 연습해보세요!
+          .column.is-two-fifths
+            img(src='/images/GMD2.gif')
+        .columns.is-centered.is-vcentered.explain(data-aos='fade-up')
+          .column.is-two-fifths
+            img(src='/images/GMD3.gif')
+          .column.is-two-fifths
+            h3.title.is-4 속도 조절
+            p.subtitle
+              | 속도가 빨라 연습하기 어려울 때는
+              | 하단의 Speed를 조절해 느린 박자로 연습해보세요!
+        .columns.is-centered.is-vcentered.explain(data-aos='fade-up')
+          .column.is-two-fifths
+            h3.title.is-4 메트로눔
+            p.subtitle
+              | 박자를 맞추기 어렵다면
+              | 하단의 메트로눔 버튼을 누르세요.
+              | 정확한 타이밍을 맞춰줍니다.
+          .column.is-two-fifths
+            img(src='/images/GMD4.gif')
+        .columns.is-centered.is-vcentered.explain(data-aos='fade-up')
+          .column.is-two-fifths
+            img(src='/images/file.png' width=250 height=auto)
+          .column.is-two-fifths
+            h3.title.is-4 업로드
+            p.subtitle
+              | 기타 프로파일을 업로드하면
+              | 그에 맞는 악보를 그려서 보여주고
+              | 반주도 재생할 수 있습니다.
+            div.buttons.is-centered
+              button.button.is-link.is-outlined(onclick="location.href = '/upload' ") 해보기
+    include footer
+    script.
+      AOS.init()

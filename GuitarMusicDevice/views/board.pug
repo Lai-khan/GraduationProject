@@ -1,0 +1,52 @@
+doctype html
+html
+    head
+        include head
+        link(rel='stylesheet', href='/stylesheets/board.css', type='text/css')
+    body
+        include nav
+        section.hero.is-medium.is-primary.is-bold
+            .hero-body
+                .container.has-text-centered
+                    h1.title
+                        | 원하는 곡을 찾아보세요!
+                    form.panel-block(action='/search')
+                        .control.has-icons-left
+                            input.input.is-rounded.is-medium.has-text-centered(type='text', placeholder='Search Music', name='musicName')
+                            span.icon.is-left
+                                i.fas.fa-search(aria-hidden='true')
+        section.section.is-medium
+            .container
+                table.table.is-hoverable
+                    thead
+                        tr
+                            th 번호
+                            th 곡 제목
+                            th 작성자
+                            th 등록일
+                    tbody
+                        tr
+                            td 1
+                            td
+                                a(href='/guitar') Twillight
+                            td 백우
+                            td 2019-10-21
+                nav.pagination.is-rounded.is-centered(role='navigation', aria-label='pagination')
+                    a.pagination-previous Previous
+                    a.pagination-next Next page
+                    ul.pagination-list
+                        li
+                            a.pagination-link(aria-label='Goto page 1') 1
+                        li
+                            span.pagination-ellipsis …
+                        li
+                            a.pagination-link(aria-label='Goto page 5') 5
+                        li
+                            a.pagination-link.is-current(aria-label='Page 6', aria-current='page') 6
+                        li
+                            a.pagination-link(aria-label='Goto page 7') 7
+                        li
+                            span.pagination-ellipsis …
+                        li
+                            a.pagination-link(aria-label='Goto page 10') 10
+        include footer
