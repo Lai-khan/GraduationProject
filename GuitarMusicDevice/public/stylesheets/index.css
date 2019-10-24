@@ -5,6 +5,12 @@
   font-style: normal;
 }
 
+@media (min-width: 1024px) {
+  .navbar-brand {
+    margin-right: 50px;
+  }
+}
+
 .columns {
   padding-left: 50px;
   padding-right: 50px;

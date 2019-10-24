@@ -10,6 +10,9 @@ var indexRouter = require('./routes/index');
 var musicRouter = require('./routes/music');
 var searchRouter = require('./routes/search');
 var guitarRouter = require('./routes/guitar');
+var uploadRouter = require('./routes/upload');
+var authRouter = require('./routes/auth');
+var mypageRouter = require('./routes/mypage');
 
 var app = express();
 
@@ -28,6 +31,9 @@ app.use('/', indexRouter);
 app.use('/music', musicRouter);
 app.use('/search', searchRouter);
 app.use('/guitar', guitarRouter);
+app.use('/upload', uploadRouter);
+app.use('/auth', authRouter);
+app.use('/mypage', mypageRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

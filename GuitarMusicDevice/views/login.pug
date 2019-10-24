@@ -1,0 +1,28 @@
+doctype html
+html
+  head
+    include head
+    link(rel='stylesheet', href='../stylesheets/login.css', type='text/css')
+  body
+    include nav
+    section.section.is-large
+        .container
+            form.panel.is-primary(action='/upload/process', method='post')
+                p.panel-heading.has-text-centered
+                    | 로그인
+                .panel-block
+                    .control.has-icons-left.has-icons-right
+                        input.input(type='text', placeholder='별명/이메일', name='loginID')
+                        span.icon.is-small.is-left
+                            i.fas.fa-user
+                        span.icon.is-small.is-right
+                            i.fas.fa-check
+                .panel-block
+                    p.control.has-icons-left
+                        input.input(type='password', placeholder='비밀번호', name='password')
+                        span.icon.is-small.is-left
+                            i.fas.fa-lock
+                .panel-block
+                    button.button.is-primary.is-outlined.is-halfwidth(type='submit') 로그인
+            // Social Login
+    include footer

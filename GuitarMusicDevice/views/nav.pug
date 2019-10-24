@@ -9,18 +9,18 @@ nav.navbar.has-shadow.is-spaced
             span(aria-hidden='true')
         #navbarMenu.navbar-menu
           .navbar-start
-            a.navbar-item(href='/')
-              span.icon.has-text-info
-                i.fas.fa-home.fa-w-14
-              span Home
+            //- a.navbar-item(href='/')
+            //-   span.icon.has-text-info
+            //-     i.fas.fa-home.fa-w-14
+            //-   span Home
             a.navbar-item(href='/music')
-              span.icon.has-text-success
+              span.icon.has-text-primary
                 i.fas.fa-search
-              span Search
+              span 악보 찾기
             a.navbar-item(href='/upload')
               span.icon.has-text-warning
                 i.fas.fa-upload
-              span Upload
+              span 업로드
             .navbar-item.had-dropdown.is-hoverable
               a.navbar-link(href='#')
                 | More
@@ -30,5 +30,5 @@ nav.navbar.has-shadow.is-spaced
           .navbar-end
             .navbar-item
               .buttons
-                a.button.is-primary(href='#') Login
-                a.button.is-danger(href='#') Sign up
+                a.button.is-primary(href='/auth/login') 로그인
+                a.button.is-danger(href='/auth/signup') 회원가입
