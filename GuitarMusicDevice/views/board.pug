@@ -25,12 +25,19 @@ html
                             th 작성자
                             th 등록일
                     tbody
+                    - var end = (page * page_num) < list.length ? (page * page_num) : list.length
+                    - for (var i = page*page_num - page_num; i < end; i++)
+                        if i > list.length-1
+                            - i++;
+                        else
+                            - var data = list[i];
                         tr
-                            td 1
+                            td #{data.idx}
                             td
-                                a(href='/guitar') Twillight
-                            td 백우
-                            td 2019-10-21
+                                - var link = data.idx;
+                                a(href='/guitar/'+link) #{data.title}
+                            td #{data.name}
+                            td #{data.updateDate}
                 nav.pagination.is-rounded.is-centered(role='navigation', aria-label='pagination')
                     a.pagination-previous Previous
                     a.pagination-next Next page
