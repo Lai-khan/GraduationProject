@@ -12,48 +12,123 @@ html
                         | 원하는 곡을 찾아보세요!
                     form.panel-block(action='/search/1')
                         .control.has-icons-left
-                            input.input.is-rounded.is-medium.has-text-centered(type='text', placeholder='연주하고 싶은 노래를 검색해보세요.', name='musicName')
+                            input.input.is-rounded.is-medium.has-text-centered(type='text', placeholder='연주하고 싶은 노래를 검색해보세요.', name='search')
                             span.icon.is-left
                                 i.fas.fa-search(aria-hidden='true')
         section.section.is-medium
             .container
-                table.table.is-hoverable
-                    thead
-                        tr
-                            th 번호
-                            th 곡 제목
-                            th 작성자
-                            th 등록일
-                    tbody
-                    - var end = (page * page_num) < list.length ? (page * page_num) : list.length
-                    - for (var i = page*page_num - page_num; i < end; i++)
-                        if i > list.length-1
-                            - i++;
-                        else
-                            - var data = list[i];
-                        tr
-                            td #{data.idx}
-                            td
-                                - var link = data.idx;
-                                a(href='/guitar/'+link) #{data.title}
-                            td #{data.name}
-                            td #{data.updateDate}
-                nav.pagination.is-rounded.is-centered(role='navigation', aria-label='pagination')
-                    a.pagination-previous Previous
-                    a.pagination-next Next page
-                    ul.pagination-list
-                        li
-                            a.pagination-link(aria-label='Goto page 1') 1
-                        li
-                            span.pagination-ellipsis …
-                        li
-                            a.pagination-link(aria-label='Goto page 5') 5
-                        li
-                            a.pagination-link.is-current(aria-label='Page 6', aria-current='page') 6
-                        li
-                            a.pagination-link(aria-label='Goto page 7') 7
-                        li
-                            span.pagination-ellipsis …
-                        li
-                            a.pagination-link(aria-label='Goto page 10') 10
+                if(list.length == 0)
+                    h1.title
+                        | #{searchGet}와(과) 일치하는 검색결과가 없습니다.
+                    .content
+                        .subtitle 제안
+                        ol(type="I")
+                            li 모든 단어의 철자가 정확한지 확인하세요.
+                            li 다른 검색어를 사용해 보세요.
+                            li 더 일반적인 검색어를 사용해 보세요.
+                else
+                    table.table.is-hoverable
+                        thead
+                            tr
+                                th 번호
+                                th 곡 제목
+                                th 작성자
+                                th 등록일
+                        tbody
+                        - var end = (page * page_num) < list.length ? (page * page_num) : list.length
+                        - for (var i = page*page_num - page_num; i < end; i++)
+                            if i > list.length-1
+                                - i++;
+                            else
+                                - var data = list[i];
+                            tr
+                                td #{data.idx}
+                                td
+                                    - var link = data.idx;
+                                    a(href='/guitar/'+link) #{data.title}
+                                td #{data.name}
+                                td #{data.updateDate}
+                    - var pageNum = parseInt(list.length / page_num);
+                    if(list.length % page_num != 0)
+                        - pageNum++;
+                    nav.pagination.is-rounded.is-centered(role='navigation', aria-label='pagination')
+                        ul.pagination-list
+                            if(pageNum > 5)
+                                if(page < 4)
+                                    if(page == 3)
+                                        - var max = 4;
+                                    else
+                                        - var max = 3;
+                                    - for(var i=0; i<max; i++)
+                                        if(state == 1)
+                                            - var hrefURL = url + parseInt(i+1);
+                                        else if (state == 2)
+                                            - var hrefURL = url + parseInt(i+1) + '?search=' + searchGet;
+                                        if(page == i+1)
+                                            li
+                                                a.pagination-link.is-current(href=hrefURL) #{i+1}
+                                        else
+                                            li
+                                                a.pagination-link(href=hrefURL) #{i+1}
+                                    li
+                                        span.pagination-ellipsis …
+                                    li
+                                        if(state == 1)
+                                            a.pagination-link(href=url+pageNum) #{pageNum}
+                                        else if (state == 2)
+                                            a.pagination-link(href=url+pageNum+'?search='+searchGet) #{pageNum}
+                                else
+                                    li
+                                        if(state == 1)
+                                            a.pagination-link(href=url+'1') 1 
+                                        else if (state == 2)
+                                            a.pagination-link(href=url+'1?search='+searchGet) 1
+                                    li
+                                        span.pagination-ellipsis …
+                                    if(parseInt(page)+1 > pageNum)
+                                        - var max = pageNum;
+                                    else
+                                        - var max = parseInt(page)+1;
+                                    - for(var i=parseInt(page)-2; i<max; i++)
+                                        if(state == 1)
+                                            - var hrefURL = url + parseInt(i+1);
+                                        else if (state == 2)
+                                            - var hrefURL = url + parseInt(i+1) + '?search=' + searchGet;
+                                        if(page == i+1)
+                                            li
+                                                a.pagination-link.is-current(href=hrefURL) #{i+1}
+                                        else
+                                            li
+                                                a.pagination-link(href=hrefURL) #{i+1}
+                                    - var diff = pageNum - page;
+                                    if(diff > 2)
+                                        li
+                                            span.pagination-ellipsis …
+                                        li
+                                            if(state == 1)
+                                                - var hrefURL = url+pageNum
+                                            else if (state == 2)
+                                                - var hrefURL = url+pageNum+'?search='+searchGet
+                                            if(page == pageNum)
+                                                a.pagination-link.is-current(href=hrefURL) #{pageNum} 
+                                            else
+                                                a.pagination-link(href=hrefURL) #{pageNum}
+                                    else if (diff == 2)
+                                        if(state == 1)
+                                            a.pagination-link(href=url+pageNum) #{pageNum}
+                                        else if (state == 2)
+                                            a.pagination-link(href=url+pageNum+'?search='+searchGet) #{pageNum}
+
+                            else
+                                - for(var i=0; i<pageNum; i++)
+                                    if(state == 1)
+                                        - var hrefURL = url + parseInt(i+1);
+                                    else if (state == 2)
+                                        - var hrefURL = url + parseInt(i+1) + '?search=' + searchGet;
+                                    if(page == i+1)
+                                        li
+                                            a.pagination-link.is-current(href=hrefURL) #{i+1}
+                                    else
+                                        li
+                                            a.pagination-link(href=hrefURL) #{i+1}
         include footer
