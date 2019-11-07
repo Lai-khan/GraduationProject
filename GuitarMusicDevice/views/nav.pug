@@ -30,5 +30,9 @@ nav.navbar.has-shadow.is-spaced
           .navbar-end
             .navbar-item
               .buttons
-                a.button.is-primary(href='/auth/login') 로그인
-                a.button.is-danger(href='/auth/signup') 회원가입
+                if(isLogined)
+                  a.button.is-primary(href='/') 로그아웃
+                  a.button.is-danger(href='/mypage') 마이페이지
+                else
+                  a.button.is-primary(href='/auth/login') 로그인
+                  a.button.is-danger(href='/auth/signup') 회원가입
