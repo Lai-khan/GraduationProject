@@ -1,0 +1,22 @@
+doctype html
+html
+  head
+    include head
+    link(rel='stylesheet', href='../stylesheets/upload_before.css', type='text/css')
+  body
+    include nav
+    section.hero.is-medium.is-warning.is-bold
+        .hero-body
+            .container.has-text-centered
+                h1.title
+                    | 기타 프로 파일을 업로드하고 그에 맞는 반주를 들어보세요!
+    section.section.is-medium
+        .container
+            .form
+                .panel.is-warning
+                    p.panel-heading.has-text-centered
+                        | 파일을 업로드 하려면 로그인을 먼저 해주세요!
+                div
+                    button.button.is-large.is-outlined.is-primary(onclick="location.href='/auth/login'")
+                        | 로그인하기
+    include footer

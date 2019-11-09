@@ -1,0 +1,17 @@
+doctype html
+html
+  head
+    include head
+    link(rel='stylesheet', href='../stylesheets/signup_after.css', type='text/css')
+  body
+    include nav
+    section.section.is-large
+        .container
+            .form
+                .panel.is-danger
+                    p.panel-heading.has-text-centered
+                        | 회원가입이 완료되었습니다!
+                div
+                    button.button.is-large.is-outlined.is-primary(onclick="location.href='/auth/login'")
+                        | 로그인하기
+    include footer

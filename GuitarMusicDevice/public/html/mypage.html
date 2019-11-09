@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>포르텝</title>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.8.0/css/bulma.min.css">
+    <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
+    <link rel="stylesheet" href="../stylesheets/mypage.css">
+    <link rel="stylesheet" href="../stylesheets/footer.css">
+  </head>
+  <body>
+        <nav class="navbar has-shadow is-spaced">
+            <div class="container">
+                <div class="navbar-brand">
+                    <a class="navbar-item" href="index.html">
+                        <img src="../images/forteb_Logo.png" width="112" height="28">
+                    </a>
+
+                    <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navbarMenu">
+                        <span aria-hidden="true"></span>
+                        <span aria-hidden="true"></span>
+                        <span aria-hidden="true"></span>
+                    </a>
+                </div>
+
+                <div id="navbarMenu" class="navbar-menu">
+                    <div class="navbar-start">
+                        <a class="navbar-item" href="#">
+                            <span class="icon has-text-info">
+                                <i class="fas fa-home fa-w-14"></i>
+                            </span>
+                            <span>Home</span>
+                        </a>
+                        <a class="navbar-item" href="#">
+                            <span class="icon has-text-success">
+                                <i class="fas fa-search"></i>
+                            </span>
+                            <span>Search</span>
+                        </a>
+                        <a class="navbar-item" href="#">
+                            <span class="icon has-text-warning">
+                                <i class="fas fa-upload"></i>
+                            </span>
+                            <span>Upload</span>
+                        </a>
+                        <div class="navbar-item had-dropdown  is-hoverable">
+                            <a class="navbar-link" href="#">
+                            More
+                            </a>
+
+                            <div class="navbar-dropdown">
+                                <a class="navbar-item" href="#">About Us</a>
+                                <a class="navbar-item" href="#">Contact</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="navbar-end">
+                        <div class="navbar-item">
+                            <div class="buttons">
+                                <a class="button is-primary" href="#">Login</a>
+                                <a class="button is-danger" href="#">Sign up</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+        <section class="section is-medium">
+            <div class="container">
+                <nav class="navbar side-nav">
+                    <ul>
+                        <li><a class="navbar-item" href="#">내 악보</a></li>
+                        <li><a class="navbar-item" href="#">회원정보</a></li>
+                        <li><a class="navbar-item" href="#">회원탈퇴</a></li>
+                    </ul>
+                </nav>
+                <div class="main">
+                    <table class="table is-hoverable">
+                        <thead>
+                            <tr>
+                            <th>번호</th>
+                            <th>곡 제목</th>
+                            <th>등록일</th>
+                            <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                            <td>1</td>
+                            <td><a href="/guitar">Twillight</a></td>
+                            <td>2019-10-21</td>
+                            <td>
+                                <a class="delete"></a>
+                            </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <nav class="pagination is-rounded is-centered" role="navigation" aria-label="pagination">
+                        <ul class="pagination-list">
+                        <li><a class="pagination-link" aria-label="Goto page 1">1</a></li>
+                        <li><span class="pagination-ellipsis">&hellip;</span></li>
+                        <li><a class="pagination-link" aria-label="Goto page 5">5</a></li>
+                        <li><a class="pagination-link is-current" aria-label="Page 6" aria-current="page">6</a></li>
+                        <li><a class="pagination-link" aria-label="Goto page 7">7</a></li>
+                        <li><span class="pagination-ellipsis">&hellip;</span></li>
+                        <li><a class="pagination-link" aria-label="Goto page 10">10</a></li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </section>
+
+        <footer class="footer">
+            <div class="has-text-centered">
+                <small>&copy; Copyright 2019. Develop By Guardian_demoN & Lai_Khan</small>
+            </div>
+        </footer>
+        
+        <script src="../javascripts/main.js"></script>
+  </body>
+</html>

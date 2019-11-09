@@ -1,0 +1,28 @@
+.side-nav {
+    float: left;
+    border-right: solid 1px gray;
+    padding: 20px;
+}
+
+.side-nav a {
+    display: block;
+}
+
+.main {
+    margin-left: 130px;
+    
+}
+
+.pagination {
+    margin: 0 auto;
+    margin-top: 50px;
+    width: 800px;
+}
+
+.table {
+    margin: 0 auto;
+}
+
+th:nth-child(1) { width: 120px;}
+th:nth-child(2) { width: 400px;}
+th:nth-child(3) { width: 150px;}
