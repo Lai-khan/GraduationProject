@@ -13,6 +13,7 @@ var guitarRouter = require('./routes/guitar');
 var uploadRouter = require('./routes/upload');
 var authRouter = require('./routes/auth');
 var mypageRouter = require('./routes/mypage');
+var moreRouter = require('./routes/more');
 
 var app = express();
 
@@ -34,6 +35,7 @@ app.use('/guitar', guitarRouter);
 app.use('/upload', uploadRouter);
 app.use('/auth', authRouter);
 app.use('/mypage', mypageRouter);
+app.use('/more', moreRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
