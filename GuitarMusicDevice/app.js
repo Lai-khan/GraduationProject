@@ -4,6 +4,8 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+var crypto = require('crypto');
+var multer = require('multer');
 
 // declare router
 var indexRouter = require('./routes/index');
