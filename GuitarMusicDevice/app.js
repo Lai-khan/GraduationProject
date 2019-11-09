@@ -4,6 +4,12 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+// using crypto - included into individual files
+// using multer - included into individual files
+// using express-session - included into individial files
+var session = require('express-session');
+// using session-file-store - included into individual files
+var FileStore = require('session-file-store')(session);
 
 // declare router
 var indexRouter = require('./routes/index');
@@ -25,6 +31,16 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+
+
+// session handler
+app.use(session({
+  secret: 'plague doctor schnabel',
+  resave: false,
+  saveUninitialized: true,
+  store: new FileStore()
+}));
+
 
 // connect router
 app.use('/', indexRouter);

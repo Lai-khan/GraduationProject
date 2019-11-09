@@ -4,14 +4,75 @@ var db = require('../lib/mysql');
 var crypto = require('crypto');
 
 router.get('/login', function(req, res, next) {
-    res.render('login');
+    if(req.session.logined){
+        res.send('logged in as.. ' + req.session.user_id);
+        //res.redirect();
+    }else{
+        res.render('login');
+    }
 });
 
-router.get('/login/process', function(req, res, next) {
-    res.redirect();
+router.post('/login/process', function(req, res, next) {
+    var loginID = req.body.loginID;
+    var password = req.body.password;
+
+    // DB에서 id, pw, salt 회수
+    // id를 salt로 암호화
+    // pw, encpw를 비교
+    // 맞다면 세션 추가
+
+    // sql query
+    var sql = `
+    SELECT * 
+    FROM userlist
+    WHERE nickname='${loginID}'
+    `;
+
+    // inserting into sql
+    db.query(sql, function(err, rows) {
+        if(err) next(err);
+        else {
+            var uid = rows[0]["uid"];
+            var nickname = rows[0]["nickname"];
+            var encryptedPassword = rows[0]["password"];
+            var salt = rows[0]["salt"];
+            
+            console.log(rows);
+            console.log("uid     : " + uid);
+            console.log("nickname: " + nickname);
+            console.log("salt    : " + salt);
+            console.log("password: " + encryptedPassword);
+
+            // encryption
+            crypto.pbkdf2(password, salt, 491052, 64, 'sha512', (err, key) => {
+                if(encryptedPassword == key.toString('base64')){
+                    // right answer
+                    console.log("encpw   : " + encryptedPassword);
+                    console.log("encnow  : " + key.toString('base64'));
+                    console.log("key match.");
+
+                    // login session
+                    req.session.logined = true;
+                    req.session.user_id = nickname;
+
+                    res.send("login succeed.");
+                }else{
+                    // wrong password or id
+                    console.log("encpw   : " + encryptedPassword);
+                    console.log("encnow  : " + key.toString('base64'));
+                    console.log("key mismatch.");
+
+                    res.send("login failed.");
+                }
+            });
+        }
+    })
+
+    //res.redirect();
 });
 
 router.get('/logout', function(req, res, next) {
+    //  req.session.destroy();
     res.redirect();
 });
 
@@ -32,18 +93,18 @@ router.post('/signup/process', function(req, res, next){
     var salt = '';
     var encryptedPassword = '';
 
-    // making salt, as 73 byte
-    crypto.randomBytes(73, (err, buf) => {
+    // making salt, as 64 byte
+    crypto.randomBytes(64, (err, buf) => {
         if(err) next(err);
         else{
             salt = buf.toString('base64');
 
-            // making pw encrypted, as 71 byte
-            crypto.pbkdf2(password, buf.toString('base64'), 491052, 71, 'sha512', (err, key) => {
+            // making pw encrypted, as 64 byte
+            crypto.pbkdf2(password, buf.toString('base64'), 491052, 64, 'sha512', (err, key) => {
                 encryptedPassword = key.toString('base64');
                 console.log('salt: ' + salt);
                 console.log('enpw: ' + encryptedPassword);
-
+                // board -> music
                 // sql query
                 var sql = `
                 INSERT INTO userlist(nickname, email, password, salt)
