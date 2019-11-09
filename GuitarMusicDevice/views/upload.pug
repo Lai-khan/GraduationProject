@@ -12,7 +12,7 @@ html
                     | 기타 프로 파일을 업로드하고 그에 맞는 반주를 들어보세요!
     section.section.is-medium
         .container
-            form.panel.is-warning(action='/upload/process', method='post')
+            form.panel.is-warning(action='/upload/process', method='post', enctype="multipart/form-data")
                 p.panel-heading.has-text-centered
                     | 악보 파일 업로드
                 .panel-block
@@ -30,6 +30,9 @@ html
                                 span.file-label
                                     | Guitar Pro 파일 업로드
                             span.file-name
+                                //- changes here
+                                text.file-name-text
+                                    | file name
                 .panel-block
                     button.button.is-link.is-outlined.is-halfwidth(type='submit') 업로드
     include footer
