@@ -4,6 +4,8 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+var session = require('express-session');
+var FileStore = require('session-file-store')(session);
 
 // declare router
 var indexRouter = require('./routes/index');
@@ -26,6 +28,14 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+
+// session handler
+app.use(session({
+  secret: 'IN MODERN WAR... YOU WILL DIE LIKE A DOG FOR NO GOOD REASON',
+  resave: false,
+  saveUninitialized: true,
+  store: new FileStore()
+}));
 
 // connect router
 app.use('/', indexRouter);
