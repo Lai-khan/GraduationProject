@@ -3,7 +3,11 @@ var router = express.Router();
 var db = require('../lib/mysql');
 
 router.get('/', function(req, res, next) {
-    res.render('mypage');
+    if(req.session.logined){
+        res.render('mypage');
+    }else{
+        res.redirect('../');
+    }
 });
 
 module.exports = router;

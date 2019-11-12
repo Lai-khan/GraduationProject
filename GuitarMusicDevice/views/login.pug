@@ -7,7 +7,8 @@ html
     include nav
     section.section.is-large
         .container
-            form.panel.is-primary(action='/auth/login/process', method='post')
+            //-form.panel.is-primary(action='/auth/login/process', method='post')
+            form.panel.is-primary(action='/auth/login/process', method='post', name='form')
                 p.panel-heading.has-text-centered
                     | 로그인
                 .panel-block
@@ -23,6 +24,10 @@ html
                         span.icon.is-small.is-left
                             i.fas.fa-lock
                 .panel-block
-                    button.button.is-primary.is-outlined.is-halfwidth(type='submit') 로그인
+                    //-button.button.is-danger.is-outlined.is-halfwidth(type='button', name='submit', onclick='processForm("/auth/signup/process")') 회원가입
+                    //-button.button.is-primary.is-outlined.is-halfwidth(type='submit') 로그인
+                    button.button.is-primary.is-outlined.is-halfwidth(type='button', name='submit', onclick='processForm("/auth/login/process")') 로그인
             // Social Login
     include footer
+    script(type='text/javascript' src='/javascripts/formProcessor.js')
+    script(type='text/javascript' src='/javascripts/formProcessor_login.js')

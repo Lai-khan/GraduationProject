@@ -3,6 +3,44 @@ var router = express.Router();
 var db = require('../lib/mysql');
 var crypto = require('crypto');
 
+/*
+// Things to do
+// 1. login session check
+// 1.1 login
+// 1.2 board
+// 1.3 upload
+// 1.4 mypage
+
+// 2. upload::redirect()
+// * html handling required
+// 2.1 whether title is entered
+// 2.2 whether file is uploaded
+// 2.3 special character checking
+// * backend handling required
+// 2.1 whether is guitar profile in right form
+// 3. login::redirect()
+// * html handling required
+
+// 3.1 [*]whether id is entered
+// 3.2 [*]whether password is entered
+// 3.3 [*](my idea) special character checking
+// * backend handling required
+// 3.1 id/email and pw matching handling
+
+// 4. singup::redirect()
+// * html handling required
+// 4.1 [*]whether id is entered
+// 4.2 [*]whether password is entered
+// 4.3 [*]email form checker
+// 4.4 [*]special character checking
+// 4.5 [*]ON ERROR: redirect into other pages
+//               i.e. /auth/signup/error1, /auth/signup/error2, ...
+
+// 5. html all-around
+// <title> checking
+*/
+
+
 router.get('/login', function(req, res, next) {
     res.render('login');
     /*

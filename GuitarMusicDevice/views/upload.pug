@@ -33,6 +33,9 @@ html
                                 //- changes here
                                 text.file-name-text
                 .panel-block
-                    button.button.is-link.is-outlined.is-halfwidth(type='submit') 업로드
+                    button.button.is-link.is-outlined.is-halfwidth(type='button', name='submit', onclick='processForm("/upload/process")') 업로드
+
     include footer
     script(type='text/javascript' src='/javascripts/uploadForm.js')
+    script(type='text/javascript' src='/javascripts/formProcessor.js')
+    script(type='text/javascript' src='/javascripts/formProcessor_upload.js')
