@@ -7,22 +7,23 @@ html
     include nav
     section.section.is-large
         .container
-            form.panel.is-primary(action='/auth/login/process', method='post')
+            form.panel.is-primary(action='/upload/process', method='post')
                 p.panel-heading.has-text-centered
                     | 로그인
-                .panel-block
+                .field
+                    label.label 별명/이메일
                     .control.has-icons-left.has-icons-right
                         input.input(type='text', placeholder='별명/이메일', name='loginID')
                         span.icon.is-small.is-left
                             i.fas.fa-user
                         span.icon.is-small.is-right
                             i.fas.fa-check
-                .panel-block
+                .field
+                    label.label 비밀번호
                     p.control.has-icons-left
                         input.input(type='password', placeholder='비밀번호', name='password')
                         span.icon.is-small.is-left
                             i.fas.fa-lock
-                .panel-block
+                .field
                     button.button.is-primary.is-outlined.is-halfwidth(type='submit') 로그인
-            // Social Login
     include footer

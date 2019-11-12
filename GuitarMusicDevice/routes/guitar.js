@@ -5,12 +5,12 @@ var db = require('../lib/mysql');
 router.get('/:file', function(req, res, next) {
     var file = req.params.file;
     console.log(file);
-    var sql = `SELECT filename FROM music WHERE idx = ${file}`;
-    db.query(sql, function(err, filename) {
+    var sql = `SELECT * FROM music WHERE idx = ${file}`;
+    db.query(sql, function(err, result) {
         if(err) next(err);
         else {
-            console.log(filename);
-            res.render('guitar', {guitarPro: filename});
+            console.log(result);
+            res.render('guitar', {guitarPro: result});
         }
     })
 });

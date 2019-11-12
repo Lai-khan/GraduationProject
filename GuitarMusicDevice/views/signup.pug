@@ -7,28 +7,37 @@ html
     include nav
     section.section.is-large
         .container
-            form.panel.is-danger(action='/auth/signup/process', method='post')
+            form.panel.is-danger(action='/upload/process', method='post')
                 p.panel-heading.has-text-centered
                     | 회원가입
-                .panel-block
+                .field
+                    label.label 별명
                     .control.has-icons-left.has-icons-right
-                        input.input(type='text', placeholder='별명', name='nickname')
+                        input.input(type='text', placeholder='별명', name='nickname', minlength='2')
                         span.icon.is-small.is-left
                             i.fas.fa-user
                         span.icon.is-small.is-right
                             i.fas.fa-check
-                .panel-block
+                .field
+                    label.label 이메일
                     .control.has-icons-left.has-icons-right
                         input.input(type='email', placeholder='이메일', name='email')
                         span.icon.is-small.is-left
                             i.fas.fa-envelope
                         span.icon.is-small.is-right
                             i.fas.fa-check
-                .panel-block
+                .field
+                    label.label 비밀번호
                     p.control.has-icons-left
                         input.input(type='password', placeholder='비밀번호', name='password')
                         span.icon.is-small.is-left
                             i.fas.fa-lock
-                .panel-block
+                .field
+                    label.label 비밀번호 확인
+                    p.control.has-icons-left
+                        input.input(type='password', placeholder='비밀번호 확인', name='password')
+                        span.icon.is-small.is-left
+                            i.fas.fa-lock
+                .field
                     button.button.is-danger.is-outlined.is-halfwidth(type='submit') 회원가입
     include footer
