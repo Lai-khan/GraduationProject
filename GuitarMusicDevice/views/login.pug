@@ -12,15 +12,15 @@ html
                 p.panel-heading.has-text-centered
                     | 로그인
                 .panel-block
-                    .control.has-icons-left.has-icons-right
-                        input.input(type='text', placeholder='별명/이메일', name='loginID')
+                    p.control.has-icons-left.has-icons-right
+                        input.input(type='text', placeholder='별명/이메일', name='loginID', maxlength='50', minlength='2')
                         span.icon.is-small.is-left
                             i.fas.fa-user
                         span.icon.is-small.is-right
                             i.fas.fa-check
                 .panel-block
                     p.control.has-icons-left
-                        input.input(type='password', placeholder='비밀번호', name='password')
+                        input.input(type='password', placeholder='비밀번호', name='password', maxlength='20', minlength='8')
                         span.icon.is-small.is-left
                             i.fas.fa-lock
                 .panel-block
