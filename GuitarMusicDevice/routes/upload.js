@@ -43,9 +43,14 @@ let upload = multer({
 })
 
 router.get('/', function(req, res, next) {
-    res.render('upload');
-    // if(req.session.logined){ res.render('upload'); }
-    // else{ res.render( 'upload_before'); }
+    if(req.session.logined) {
+        var login = true;
+        res.render('upload', {isLogined : login});
+    }
+    else {
+        var login = false;
+        res.render( 'upload_before', {isLogined : login});
+    }
 });
 
 router.post('/process', upload.single('gpfile'), function(req, res, next){

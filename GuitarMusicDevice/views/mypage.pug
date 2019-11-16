@@ -45,7 +45,7 @@ html
                                     a(href='/guitar/'+link) #{data.title}
                                 td #{data.updateDate}
                                 td
-                                    form(action='/delete_process', method='post')
+                                    form(action='/mypage/delete_process', method='post')
                                         input(type='hidden', name="idx", value=data.idx)
                                         button.delete(type='submit')
                     - var pageNum = parseInt(list.length / page_num);

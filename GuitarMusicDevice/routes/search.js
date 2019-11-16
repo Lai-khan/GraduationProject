@@ -3,6 +3,10 @@ var router = express.Router();
 var db = require('../lib/mysql');
 
 router.get('/:page', function(req, res, next) {
+    if(req.session.logined)
+        var login = true;
+    else
+        var login = false;
     var search = req.param("search");
     var page = req.params.page;
     var url = '/search/';
@@ -14,7 +18,7 @@ router.get('/:page', function(req, res, next) {
         if(err) next(err)
         else {
             console.log(result);
-            res.render('board', {list: result, page: page, page_num: 10, url: url, searchGet: search, state: 2});
+            res.render('board', {isLogined : login, list: result, page: page, page_num: 10, url: url, searchGet: search, state: 2});
         }
     })
 });

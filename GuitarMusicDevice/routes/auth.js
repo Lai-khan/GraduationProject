@@ -46,16 +46,7 @@ const MSG_SIGNUP_EXIST_NICKNAME = "이미 존재하는 별명입니다. 사용�
 const MSG_SIGNUP_EXIST_EMAIL = "이미 존재하는 이메일입니다. 사용하실 수 없습니다.";
 
 router.get('/login', function(req, res, next) {
-    res.render('login');
-    /*
-    *박제*
-    if(req.session.logined){
-        res.send('logged in as.. ' + req.session.user_id);
-        //res.redirect();
-    }else{
-        res.render('login');
-    }
-    */
+    res.render('login', {isLogined : false});
 });
 
 router.post('/login/process', function(req, res, next) {
@@ -136,12 +127,11 @@ router.post('/login/process', function(req, res, next) {
 
 router.get('/logout', function(req, res, next) {
     req.session.destroy();
-    res.redirect('/auth/login');
-    // res.redirect('/');
+    res.redirect('/');
 });
 
 router.get('/signup', function(req, res, next) {
-    res.render('signup');
+    res.render('signup', {isLogined : false});
 });
 
 router.post('/signup/process', function(req, res, next){

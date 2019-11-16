@@ -3,6 +3,10 @@ var router = express.Router();
 var db = require('../lib/mysql');
 
 router.get('/page/:page', function(req, res, next) {
+    if(req.session.logined)
+        var login = true;
+    else
+        var login = false;
     var page = req.params.page;
     var url = '/music/page/';
     var sql = `SELECT idx, title, name, date_format(updateDate,'%Y-%m-%d') updateDate FROM board`;
@@ -10,7 +14,7 @@ router.get('/page/:page', function(req, res, next) {
         if(err) next(err);
         else {
             console.log(list);
-            res.render('board', {list: list, page: page, page_num: 10, url: url, state: 1});
+            res.render('board', {isLogined : login, list: list, page: page, page_num: 10, url: url, state: 1});
         }
     })
 });
