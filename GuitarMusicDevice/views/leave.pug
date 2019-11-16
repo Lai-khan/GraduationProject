@@ -1,0 +1,26 @@
+doctype html
+html
+  head
+    include head
+    link(rel='stylesheet', href='/stylesheets/leave.css', type='text/css')
+  body
+    include nav
+    section.section.is-medium
+        .container
+            nav.navbar.side-nav
+                ul
+                    li
+                        a.navbar-item(href='/mypage/sheet/1') 내 악보
+                    li
+                        a.navbar-item(href='/mypage/info') 회원정보
+                    li
+                        a.navbar-item(href='/mypage/leave') 회원탈퇴
+            .main
+                .sub
+                    form.panel.is-danger(action='', method='post')
+                        p.panel-heading.has-text-centered
+                            | 정말로 회원탈퇴 하시겠습니까?
+                        .field.is-horizontal
+                            button.button.is-danger.is-outlined 예
+                            button.button.is-link.is-outlined 아니오
+    include footer

@@ -1,0 +1,31 @@
+doctype html
+html
+  head
+    include head
+    link(rel='stylesheet', href='/stylesheets/info.css', type='text/css')
+  body
+    include nav
+    section.section.is-medium
+        .container
+            nav.navbar.side-nav
+                ul
+                    li
+                        a.navbar-item(href='/mypage/sheet/1') 내 악보
+                    li
+                        a.navbar-item(href='/mypage/info') 회원정보
+                    li
+                        a.navbar-item(href='/mypage/leave') 회원탈퇴
+            .main
+                .sub
+                    .panel.is-link(action='', method='post')
+                        p.panel-heading.has-text-centered
+                            | 회원정보
+                        .field
+                            label.label 별명
+                            .control
+                                a.button 백우
+                        .field
+                            label.label 이메일
+                            .control
+                                a.button seogong9026@gmail.com
+    include footer
