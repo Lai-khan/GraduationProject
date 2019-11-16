@@ -1,6 +1,9 @@
 var express = require('express');
 var router = express.Router();
 var db = require('../lib/mysql');
+var crypto = require('crypto');
+
+var MODE_DEBUG = true;
 
 router.get('/sheet/:page', function(req, res, next) {
     var name = req.session.user_id;
@@ -46,15 +49,69 @@ router.get('/info', function(req, res, next) {
 
 router.post('/info/process', function(req, res, next) {
     // password = session.id로 검색한 userlist의 비번과 같은가
-    // 같으면
-    res.redirect('/mypage/info/myinfo');
-    // 다르면, 에러 -> redirect
-    res.redirect('/mypage/info');
+    var password = req.body.password;
+
+    var sql = `
+    SELECT * FROM userlist
+    WHERE nickname='${req.session.user_id}'
+    `
+
+    db.query(sql, function(err, rows){
+        if(err) next(err);
+        if(MODE_DEBUG){
+            console.log(rows);
+            console.log("rows.length: " + rows.length);
+        }
+        if(rows.length == 0){
+            // no matching email/nickname
+            // this should not be happen
+            res.send("unexpected error: call administrator to handle this.");
+        }else{
+            var encpw = rows[0]["password"];
+            var salt = rows[0]["salt"];
+
+            crypto.pbkdf2(password, salt, 491052, 64, 'sha512', (err, key) => {
+                if(err){
+                    next(err);
+                }
+                if(encpw == key.toString('base64')){
+                    // right data
+                    res.redirect('/mypage/info/myinfo');
+                }else{
+                    // wrong pw
+                    res.redirect('/mypage/info');
+                }
+            });
+        }
+    });
 });
 
 router.get('/info/myinfo', function(req, res, next) {
     // select로 user_id 검색해서 id랑 email 변수로 보내고, pug 수정
-    res.render('info', {isLogined : true});
+    var sql = `
+    SELECT * FROM userlist
+    WHERE nickname='${req.session.user_id}'
+    `;
+
+    db.query(sql, function(err, rows){
+        if(err) next(err);
+        if(MODE_DEBUG){
+            console.log(rows);
+            console.log("rows.length: " + rows.length);
+        }
+        if(rows.length == 0){
+            // no matching email/nickname
+            // this should not be happen
+            res.send("unexpected error: call administrator to handle this.");
+        }else{
+            var id = rows[0]["nickname"];
+            var email = rows[0]["email"];
+
+            // 이 값을 통해 수정
+            res.render('info', {isLogined : true, id : id, email : email});
+        }
+    //res.render('info', {isLogined : true});
+    })
 });
 
 router.get('/leave', function(req, res, next) {
@@ -65,19 +122,99 @@ router.get('/leave', function(req, res, next) {
 router.post('/leave_really', function(req, res, next) {
     console.log(req.body.password);
     // password = session.id로 검색한 userlist의 비번과 같은가
+    var password = req.body.password;
+
+    var sql = `
+    SELECT * FROM userlist
+    WHERE nickname='${req.session.user_id}'
+    `
+
+    db.query(sql, function(err, rows){
+        if(err) next(err);
+        if(MODE_DEBUG){
+            console.log(rows);
+            console.log("rows.length: " + rows.length);
+        }
+        if(rows.length == 0){
+            // no matching email/nickname
+            // this should not be happen
+            res.send("unexpected error: call administrator to handle this.");
+        }else{
+            var encpw = rows[0]["password"];
+            var salt = rows[0]["salt"];
+
+            //console.log("password: ", password);
+            crypto.pbkdf2(password, salt, 491052, 64, 'sha512', (err, key) => {
+                if(err){
+                    next(err);
+                }
+                if(encpw == key.toString('base64')){
+                    // right data
+                    console.log("pw check passed");
+                    res.render('leave', {isLogined : true});
+                }else{
+                    // wrong pw
+                    res.redirect('/mypage/leave');
+                }
+            });
+        }
+    });
     // 같으면
-    res.render('leave', {isLogined : true});
+    //res.render('leave', {isLogined : true});
     // 다르면, 에러 -> redirect
-    res.redirect('/mypage/leave');
+    //res.redirect('/mypage/leave');
 });
 
 router.post('/leave_process', function(req, res, next) {
+    // if yes
+    // 1. remember user nickname (is this one applies w/ user_id?)
+    // 2. remove user from usertable // via removing password and salt
+    //                               // update userlist set password="" where nickname="${req.session.user_id}"
+    //                               // update userlist set salt="" where nickname="${req.session.user_id}"
+    // 3.0 remember "req.session.user_id + (탈퇴)"
+    // 3. update userlist set nickname="${req.session.user_id} where nickname="${req.session.user_id}""
+
+    console.log("leav_process");
+    var newNickname = req.session.user_id + " (탈퇴)";
+
+    var sql = `
+    UPDATE userlist
+    SET password=""
+    WHERE nickname="${req.session.user_id}"
+    `
+
+    db.query(sql, function(err){
+        if(err) next(err);
+
+        sql = `
+        UPDATE userlist
+        SET salt=""
+        WHERE nickname="${req.session.user_id}"
+        `
+
+        db.query(sql, function(err){
+            if(err) next(err);
+
+            sql = `
+            UPDATE board
+            SET name="${newNickname}"
+            WHERE name="${req.session.user_id}"
+            `
+
+            db.query(sql, function(err){
+                if(err) next(err);
+
+                req.session.destroy();
+                res.redirect('/');
+            })
+        })
+    })
     // 예
     // 회원 탈퇴 처리하고,
     // board 테이블의 작성자 + '(탈퇴)' 붙이고
-    res.redirect('/');
+    //res.redirect('/');
     // 아니오
-    res.redirect('/mypage/leave');
+    //res.redirect('/mypage/leave');
 });
 
 module.exports = router;

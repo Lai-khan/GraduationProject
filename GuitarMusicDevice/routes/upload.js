@@ -58,12 +58,12 @@ router.post('/process', upload.single('gpfile'), function(req, res, next){
     var title = req.body.musicTitle;
     console.log('title     : ' + title);
     //console.log('userid    : ' + req.session.user_id);
-    console.log('userid    : ' + 'ignored');
+    console.log('userid    : ' + req.session.user_id);
 
     // insert into board
     var sql = `
     INSERT INTO board(title, name)
-    VALUES('${title}', 'temporary')
+    VALUES('${title}', '${req.session.user_id}')
     `;
 
     db.query(sql, function(err, result) {
@@ -75,7 +75,7 @@ router.post('/process', upload.single('gpfile'), function(req, res, next){
             var sql = `
             SELECT * FROM board
             WHERE title = '${title}'
-            AND name = 'temporary'
+            AND name = '${req.session.user_id}'
             `
 
             db.query(sql, function(err, rows) {
