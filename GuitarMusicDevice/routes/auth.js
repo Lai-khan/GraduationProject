@@ -108,8 +108,7 @@ router.post('/login/process', function(req, res, next) {
                     req.session.logined = true;
                     req.session.user_id = nickname;
 
-                    res.send("login succeed.");
-                    // res.redirect("/");
+                    res.redirect("/");
                 }else{
                     // wrong password or id 로그인 실패
                     if(MODE_DEBUG){
