@@ -2,32 +2,32 @@ doctype html
 html
   head
     include head
-    link(rel='stylesheet', href='../stylesheets/login.css', type='text/css')
+    link(rel='stylesheet', href='/stylesheets/login.css', type='text/css')
   body
     include nav
     section.section.is-large
         .container
-            //-form.panel.is-primary(action='/auth/login/process', method='post')
             form.panel.is-primary(action='/auth/login/process', method='post', name='form')
                 p.panel-heading.has-text-centered
                     | 로그인
-                .panel-block
-                    p.control.has-icons-left.has-icons-right
+                .field
+                    label.label 별명/이메일
+                    .control.has-icons-left.has-icons-right
                         input.input(type='text', placeholder='별명/이메일', name='loginID', maxlength='50', minlength='2')
                         span.icon.is-small.is-left
                             i.fas.fa-user
                         span.icon.is-small.is-right
                             i.fas.fa-check
-                .panel-block
+                    p.help.is-primary
+                .field
+                    label.label 비밀번호
                     p.control.has-icons-left
                         input.input(type='password', placeholder='비밀번호', name='password', maxlength='20', minlength='8')
                         span.icon.is-small.is-left
                             i.fas.fa-lock
-                .panel-block
-                    //-button.button.is-danger.is-outlined.is-halfwidth(type='button', name='submit', onclick='processForm("/auth/signup/process")') 회원가입
-                    //-button.button.is-primary.is-outlined.is-halfwidth(type='submit') 로그인
-                    button.button.is-primary.is-outlined.is-halfwidth(type='button', name='submit', onclick='processForm("/auth/login/process")') 로그인
-            // Social Login
+                    p.help.is-primary
+                .field
+                    button.button.is-primary.is-outlined.is-halfwidth(type='submit', name='submit', onclick='processForm("/auth/login/process")') 로그인
     include footer
     script(type='text/javascript' src='/javascripts/formProcessor.js')
     script(type='text/javascript' src='/javascripts/formProcessor_login.js')

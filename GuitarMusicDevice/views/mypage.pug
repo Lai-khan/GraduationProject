@@ -1,0 +1,113 @@
+doctype html
+html
+  head
+    include head
+    link(rel='stylesheet', href='/stylesheets/mypage.css', type='text/css')
+  body
+    include nav
+    section.section.is-medium
+        .container
+            nav.navbar.side-nav
+                ul
+                    li
+                        a.navbar-item(href='/mypage/sheet/1') 내 악보
+                    li
+                        a.navbar-item(href='/mypage/info') 회원정보
+                    li
+                        a.navbar-item(href='/mypage/leave') 회원탈퇴
+            .main
+                if(list.length == 0)
+                    .none
+                        h1.title.is-center
+                            | 회원님의 악보가 없습니다.
+                        .content
+                            p 포르텝에 악보를 업로드 해보세요
+                            a.button.is-warning(href="/upload") 업로드
+                else
+                    table.table.is-hoverable
+                        thead
+                            tr
+                                th 번호
+                                th 곡 제목
+                                th 등록일
+                                th
+                        tbody
+                        - var end = (page * page_num) < list.length ? (page * page_num) : list.length
+                        - for (var i = page*page_num - page_num; i < end; i++)
+                            if i > list.length-1
+                                - i++;
+                            else
+                                - var data = list[i];
+                            tr
+                                td #{data.idx}
+                                td
+                                    - var link = data.idx;
+                                    a(href='/guitar/'+link) #{data.title}
+                                td #{data.updateDate}
+                                td
+                                    form(action='/delete_process', method='post')
+                                        input(type='hidden', name="idx", value=data.idx)
+                                        button.delete(type='submit')
+                    - var pageNum = parseInt(list.length / page_num);
+                    if(list.length % page_num != 0)
+                        - pageNum++;
+                    nav.pagination.is-rounded.is-centered(role='navigation', aria-label='pagination')
+                        ul.pagination-list
+                            if(pageNum > 5)
+                                if(page < 4)
+                                    if(page == 3)
+                                        - var max = 4;
+                                    else
+                                        - var max = 3;
+                                    - for(var i=0; i<max; i++)
+                                        - var hrefURL = url + parseInt(i+1);
+                                        if(page == i+1)
+                                            li
+                                                a.pagination-link.is-current(href=hrefURL) #{i+1}
+                                        else
+                                            li
+                                                a.pagination-link(href=hrefURL) #{i+1}
+                                    li
+                                        span.pagination-ellipsis …
+                                    li
+                                        a.pagination-link(href=url+pageNum) #{pageNum}
+                                else
+                                    li
+                                        a.pagination-link(href=url+'1') 1
+                                    li
+                                        span.pagination-ellipsis …
+                                    if(parseInt(page)+1 > pageNum)
+                                        - var max = pageNum;
+                                    else
+                                        - var max = parseInt(page)+1;
+                                    - for(var i=parseInt(page)-2; i<max; i++)
+                                        - var hrefURL = url + parseInt(i+1);
+                                        if(page == i+1)
+                                            li
+                                                a.pagination-link.is-current(href=hrefURL) #{i+1}
+                                        else
+                                            li
+                                                a.pagination-link(href=hrefURL) #{i+1}
+                                    - var diff = pageNum - page;
+                                    if(diff > 2)
+                                        li
+                                            span.pagination-ellipsis …
+                                        li
+                                            - var hrefURL = url + parseInt(i+1);
+                                            if(page == pageNum)
+                                                a.pagination-link.is-current(href=hrefURL) #{pageNum} 
+                                            else
+                                                a.pagination-link(href=hrefURL) #{pageNum}
+                                    else if (diff == 2)
+                                        a.pagination-link(href=url+pageNum) #{pageNum}
+
+                            else
+                                - for(var i=0; i<pageNum; i++)
+                                    - var hrefURL = url + parseInt(i+1);
+                                    if(page == i+1)
+                                        li
+                                            a.pagination-link.is-current(href=hrefURL) #{i+1}
+                                    else
+                                        li
+                                            a.pagination-link(href=hrefURL) #{i+1}
+    include footer

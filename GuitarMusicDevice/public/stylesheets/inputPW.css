@@ -1,9 +1,34 @@
-form {
+.section {
+    min-height: 800px;
+}
+
+.side-nav {
+    float: left;
+    height: 500px;
+    border-right: solid 2px #dad9d9;
+    padding: 20px;
+    padding-right: 70px;
+}
+
+.side-nav a {
+    display: block;
+}
+
+.main {
+    margin-left: 180px;
+}
+
+.sub {
+    padding-top: 100px;
+}
+
+.panel {
     margin: 0 auto;
+    height: 200px;
 }
 
 @media (min-width: 1024px) {
-    form {
+    .panel {
         width: 500px;
     }
     .field {
@@ -13,7 +38,7 @@ form {
 }
 
 @media (max-width: 768px) {
-    form {
+    .panel {
         width: 300px;
     }
     .field {
@@ -28,13 +53,12 @@ form {
     margin-bottom: 20px;
 }
 
+.control {
+    clear: none;
+}
+
 .button.is-halfwidth {
     margin: 0 auto;
     display: flex;
-    width: 80%;
-}
-
-.field:nth-child(6) {
-    padding-top: 10px;
-    padding-bottom: 30px;
+    width: 30%;
 }

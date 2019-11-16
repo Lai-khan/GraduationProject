@@ -17,18 +17,16 @@ nav.navbar.has-shadow.is-spaced
               span.icon.has-text-warning
                 i.fas.fa-upload
               span 업로드
-            .navbar-item.had-dropdown.is-hoverable
-              a.navbar-link(href='#')
-                | More
-              .navbar-dropdown
-                a.navbar-item(href='/more/aboutus') About Us
-                a.navbar-item(href='/more/contact') Contact
+            a.navbar-item(href='/aboutus')
+              span.icon.has-text-danger
+                i.fas.fa-user
+              span About Us
           .navbar-end
             .navbar-item
               .buttons
                 if(isLogined)
-                  a.button.is-primary(href='/') 로그아웃
-                  a.button.is-danger(href='/mypage') 마이페이지
+                  a.button.is-primary(href='/auth/logout') 로그아웃
+                  a.button.is-danger(href='/mypage/sheet/1') 마이페이지
                 else
                   a.button.is-primary(href='/auth/login') 로그인
                   a.button.is-danger(href='/auth/signup') 회원가입
