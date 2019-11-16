@@ -8,7 +8,7 @@
 const MODE_DEBUG = false;
 const MODE_ALERT = true;
 const idLength = 2;
-const pwLength = 6;
+const pwLength = 8;
 
 const MSG_NICKNAME_EMPTY = "닉네임이 비어있습니다.";
 const MSG_NICKNAME_SHORT = "닉네임 길이가 " + idLength + "자 이상인지 확인해주세요.";
@@ -41,7 +41,8 @@ const toast = (message) => {
 // function::isFilled
 // - returns whether [s] is NOT empty
 const isFilled = (s) => {
-	if(s.value == "") return false;
+	if(s.length == 0) return false;
+	//if(s.value == "") return false;
 	else return true;
 }
 

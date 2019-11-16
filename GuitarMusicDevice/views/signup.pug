@@ -38,12 +38,12 @@ html
                 .field
                     label.label 비밀번호 확인
                     p.control.has-icons-left
-                        input.input(type='password', placeholder='비밀번호 확인', name='password')
+                        input.input(type='password', placeholder='비밀번호 확인', name='passwordCheck', maxlength='20', minlength='8')
                         span.icon.is-small.is-left
                             i.fas.fa-lock
                     p.help.is-danger
                 .field
-                    button.button.is-danger.is-outlined.is-halfwidth(type='submit', name='submit', onclick='processForm("/auth/signup/process")') 회원가입
+                    button.button.is-danger.is-outlined.is-halfwidth(type='button', name='submit', onclick='processForm("/auth/signup/process")') 회원가입
     include footer
     script(type='text/javascript' src='/javascripts/formProcessor.js')
     script(type='text/javascript' src='/javascripts/formProcessor_signup.js')
