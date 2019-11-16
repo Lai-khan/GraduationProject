@@ -31,8 +31,9 @@ let storage = multer.diskStorage({
     },
     filename: function(req, file, callback){
         var date = new Date();
-        console.log(date);
+        console.log("up_date: " + date);
         g_filename = dateToString(date) + '_' + file.originalname;
+        console.log("filename: " + g_filename);
         callback(null, g_filename);
     }
 })

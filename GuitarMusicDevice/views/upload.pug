@@ -12,12 +12,12 @@ html
                     | 기타 프로 파일을 업로드하고 그에 맞는 반주를 들어보세요!
     section.section.is-medium
         .container
-            form.panel.is-warning(action='/upload/process', method='post', enctype="multipart/form-data")
+            form.panel.is-warning(action='/upload/process', method='post', enctype="multipart/form-data", name='form')
                 p.panel-heading.has-text-centered
                     | 악보 파일 업로드
                 .panel-block
                     .control.has-icons-right
-                        input.input.is-medium.has-text-centered(type='text', placeholder='악보 이름', name='musicTitle')
+                        input.input.is-medium.has-text-centered(type='text', placeholder='악보 이름', name='musicTitle', minlength='1', maxlength='64')
                         span.icon.is-right
                             i.fas.fa-music(aria-hidden='true')
                 .panel-block
@@ -33,6 +33,9 @@ html
                                 //- changes here
                                 text.file-name-text
                 .panel-block
-                    button.button.is-link.is-outlined.is-halfwidth(type='submit') 업로드
+                    button.button.is-link.is-outlined.is-halfwidth(type='button', name='submit', onclick='processForm("/upload/process")') 업로드
+
     include footer
     script(type='text/javascript' src='/javascripts/uploadForm.js')
+    script(type='text/javascript' src='/javascripts/formProcessor.js')
+    script(type='text/javascript' src='/javascripts/formProcessor_upload.js')

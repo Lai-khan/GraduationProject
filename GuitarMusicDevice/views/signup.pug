@@ -7,28 +7,33 @@ html
     include nav
     section.section.is-large
         .container
-            form.panel.is-danger(action='/auth/signup/process', method='post')
+            //- 속성 제거 및 name 추가
+            //-form.panel.is-danger(action='/auth/signup/process', method='post', name='form')
+            form.panel.is-danger(method='post', name='form')
                 p.panel-heading.has-text-centered
                     | 회원가입
                 .panel-block
                     .control.has-icons-left.has-icons-right
-                        input.input(type='text', placeholder='별명', name='nickname')
+                        input.input(type='text', placeholder='별명', name='nickname', maxlength='20', minlength='2')
                         span.icon.is-small.is-left
                             i.fas.fa-user
                         span.icon.is-small.is-right
                             i.fas.fa-check
                 .panel-block
                     .control.has-icons-left.has-icons-right
-                        input.input(type='email', placeholder='이메일', name='email')
+                        input.input(type='email', placeholder='이메일', name='email', maxlength='50')
                         span.icon.is-small.is-left
                             i.fas.fa-envelope
                         span.icon.is-small.is-right
                             i.fas.fa-check
                 .panel-block
                     p.control.has-icons-left
-                        input.input(type='password', placeholder='비밀번호', name='password')
+                        input.input(type='password', placeholder='비밀번호', name='password', maxlength='20', minlength='8')
                         span.icon.is-small.is-left
                             i.fas.fa-lock
                 .panel-block
-                    button.button.is-danger.is-outlined.is-halfwidth(type='submit') 회원가입
+                    //-button.button.is-danger.is-outlined.is-halfwidth(type='submit', onclick='processForm("/auth/signup/process")') 회원가입
+                    button.button.is-danger.is-outlined.is-halfwidth(type='button', name='submit', onclick='processForm("/auth/signup/process")') 회원가입
     include footer
+    script(type='text/javascript' src='/javascripts/formProcessor.js')
+    script(type='text/javascript' src='/javascripts/formProcessor_signup.js')
