@@ -1,7 +1,13 @@
+.section {
+    min-height: 800px;
+}
+
 .side-nav {
     float: left;
-    border-right: solid 1px gray;
+    height: 500px;
+    border-right: solid 2px #dad9d9;
     padding: 20px;
+    padding-right: 70px;
 }
 
 .side-nav a {
@@ -9,7 +15,7 @@
 }
 
 .main {
-    margin-left: 130px;
+    margin-left: 180px;
     
 }
 
@@ -23,6 +29,10 @@
     margin: 0 auto;
 }
 
-th:nth-child(1) { width: 120px;}
+th:nth-child(1) { width: 80px;}
 th:nth-child(2) { width: 400px;}
 th:nth-child(3) { width: 150px;}
+
+.none {
+    text-align: center;
+}

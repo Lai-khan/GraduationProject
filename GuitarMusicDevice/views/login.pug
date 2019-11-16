@@ -2,12 +2,12 @@ doctype html
 html
   head
     include head
-    link(rel='stylesheet', href='../stylesheets/login.css', type='text/css')
+    link(rel='stylesheet', href='/stylesheets/login.css', type='text/css')
   body
     include nav
     section.section.is-large
         .container
-            form.panel.is-primary(action='/upload/process', method='post')
+            form.panel.is-primary(action='/auth/login/process', method='post')
                 p.panel-heading.has-text-centered
                     | 로그인
                 .field
@@ -18,12 +18,14 @@ html
                             i.fas.fa-user
                         span.icon.is-small.is-right
                             i.fas.fa-check
+                    p.help.is-primary
                 .field
                     label.label 비밀번호
                     p.control.has-icons-left
                         input.input(type='password', placeholder='비밀번호', name='password')
                         span.icon.is-small.is-left
                             i.fas.fa-lock
+                    p.help.is-primary
                 .field
                     button.button.is-primary.is-outlined.is-halfwidth(type='submit') 로그인
     include footer

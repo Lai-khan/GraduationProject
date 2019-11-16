@@ -7,7 +7,7 @@
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.8.0/css/bulma.min.css">
     <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
-    <link rel="stylesheet" href="../stylesheets/mypage.css">
+    <link rel="stylesheet" href="../stylesheets/inputPW.css">
     <link rel="stylesheet" href="../stylesheets/footer.css">
   </head>
   <body>
@@ -79,37 +79,24 @@
                     </ul>
                 </nav>
                 <div class="main">
-                    <table class="table is-hoverable">
-                        <thead>
-                            <tr>
-                            <th>번호</th>
-                            <th>곡 제목</th>
-                            <th>등록일</th>
-                            <th></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                            <td>1</td>
-                            <td><a href="/guitar/1">Twillight</a></td>
-                            <td>2019-10-21</td>
-                            <td>
-                                <a class="delete"></a>
-                            </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                    <nav class="pagination is-rounded is-centered" role="navigation" aria-label="pagination">
-                        <ul class="pagination-list">
-                        <li><a class="pagination-link" aria-label="Goto page 1">1</a></li>
-                        <li><span class="pagination-ellipsis">&hellip;</span></li>
-                        <li><a class="pagination-link" aria-label="Goto page 5">5</a></li>
-                        <li><a class="pagination-link is-current" aria-label="Page 6" aria-current="page">6</a></li>
-                        <li><a class="pagination-link" aria-label="Goto page 7">7</a></li>
-                        <li><span class="pagination-ellipsis">&hellip;</span></li>
-                        <li><a class="pagination-link" aria-label="Goto page 10">10</a></li>
-                        </ul>
-                    </nav>
+                    <div class="sub">
+                        <form class="panel is-link" action="" method="post">
+                            <p class="panel-heading has-text-centered">
+                                비밀번호를 입력하세요.
+                            </p>
+                            <div class="field">
+                                <div class="control has-icons-left">
+                                    <input class="input" type="password" placeholder="비밀번호" name="password">
+                                    <span class="icon is-small is-left">
+                                        <i class="fas fa-lock"></i>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="field">
+                                <button class="button is-link is-outlined is-halfwidth" type="submit">확인</button>
+                            </div>
+                        </form>
+                    </div>
                 </div>
             </div>
         </section>

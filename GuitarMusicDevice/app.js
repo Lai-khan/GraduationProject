@@ -15,7 +15,7 @@ var guitarRouter = require('./routes/guitar');
 var uploadRouter = require('./routes/upload');
 var authRouter = require('./routes/auth');
 var mypageRouter = require('./routes/mypage');
-var moreRouter = require('./routes/more');
+var aboutRouter = require('./routes/about');
 
 var app = express();
 
@@ -45,7 +45,7 @@ app.use('/guitar', guitarRouter);
 app.use('/upload', uploadRouter);
 app.use('/auth', authRouter);
 app.use('/mypage', mypageRouter);
-app.use('/more', moreRouter);
+app.use('/aboutus', aboutRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -54,11 +54,7 @@ app.use(function(req, res, next) {
 
 // error handler
 app.use(function(err, req, res, next) {
-  // set locals, only providing error in development
-  res.locals.message = err.message;
-  res.locals.error = req.app.get('env') === 'development' ? err : {};
-
-  // render the error page
+  console.log(err);
   res.status(err.status || 500);
   res.render('error');
 });

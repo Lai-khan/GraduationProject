@@ -1,0 +1,36 @@
+doctype html
+html
+  head
+    include head
+    link(rel='stylesheet', href='/stylesheets/inputPW.css', type='text/css')
+  body
+    include nav
+    section.section.is-medium
+        .container
+            nav.navbar.side-nav
+                ul
+                    li
+                        a.navbar-item(href='/mypage/sheet/1') 내 악보
+                    li
+                        a.navbar-item(href='/mypage/info') 회원정보
+                    li
+                        a.navbar-item(href='/mypage/leave') 회원탈퇴
+            .main
+                .sub
+                    if (state === "info")
+                        - var action = "/mypage/info/process"
+                    else if (state === "leave")
+                        - var action = "/mypage/leave/really"
+
+                    form.panel.is-link(action=action, method='post')
+                        p.panel-heading.has-text-centered
+                            | 비밀번호를 입력하세요.
+                        .field
+                            .control.has-icons-left
+                                input.input(type='password', placeholder='비밀번호', name='password')
+                                span.icon.is-small.is-left
+                                    i.fas.fa-lock
+                        .field
+                            button.button.is-link.is-outlined.is-halfwidth(type='submit') 확인
+
+    include footer
