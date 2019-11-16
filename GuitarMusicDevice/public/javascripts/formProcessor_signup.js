@@ -10,13 +10,15 @@ const processForm = (dest) => {
 	if(checkPassword(formPassword.value) == false){ formPassword.focus(); return false; }
 	
 	if(formPasswordCheck.value.length == 0){
-		alert("확인용 비밀번호를 입력하지 않으셨습니다.");
+		toast("비밀번호 확인란을 입력해주세요.");
+		log("pwCheck input empty");
 		formPasswordCheck.focus();
 		return false;
 	}
 
 	if(formPassword.value != formPasswordCheck.value){
-		alert("입력한 비밀번호가 서로 일치하지 않습니다.");
+		toast("비밀번호가 일치하지 않습니다.");
+		log("pwCheck incorrection");
 		formPassword.focus();
 		return false;
 	}
