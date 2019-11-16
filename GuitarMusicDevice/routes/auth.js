@@ -51,6 +51,7 @@ router.get('/login', function(req, res, next) {
 
 router.post('/login/process', function(req, res, next) {
     var nickname = req.body.nickname;
+    var tempnick = nickname;
     var password = req.body.password;
 
     if(MODE_DEBUG){
@@ -77,7 +78,17 @@ router.post('/login/process', function(req, res, next) {
             if(MODE_DEBUG){
                 console.log("There are no matching email/nickname for input data");
             }
-            res.redirect('/auth/login');
+            res.redirect('/auth/loginError');
+        }
+        else if(tempnick != rows[0]["nickname"] && tempnick != rows[0]["email"]){
+            console.log("nickname: " + tempnick);
+            console.log("cnn: " + rows[0]["nickname"]);
+            console.log("cem: " + rows[0]["email"]);
+            if(MODE_DEBUG){
+                console.log("caseCheck: There are no matching email/nickname for input data");
+            }
+            res.redirect('/auth/loginError');
+            return;
         }
         else {
             var uid = rows[0]["uid"];
@@ -117,11 +128,15 @@ router.post('/login/process', function(req, res, next) {
                         console.log("key mismatch.");
                     }
 
-                    res.redirect('/auth/login');
+                    res.redirect('/auth/loginError');
                 }
             });
         }
     })
+});
+
+router.get('/loginError', function(req, res, next) {
+    res.render('loginError');
 });
 
 router.get('/logout', function(req, res, next) {
@@ -156,7 +171,7 @@ router.post('/signup/process', function(req, res, next){
             }
             
             //alert(MSG_SIGNUP_EXIST_NICKNAME);
-            res.redirect('/auth/signup');
+            res.redirect('/auth/signupError1');
         }else{
 
             sql = `
@@ -175,7 +190,7 @@ router.post('/signup/process', function(req, res, next){
                         console.log("already have an email.");
                     }
                     //alert(MSG_SIGNUP_EXIST_EMAIL);
-                    res.redirect('/auth/signup');
+                    res.redirect('/auth/signupError2');
                 }else{
                     // OK ROUTE
                     if(MODE_DEBUG){
@@ -216,7 +231,7 @@ router.post('/signup/process', function(req, res, next){
                                         }
                                         // 차후 적용: // res.redirect('/auth/signup', {isOk?});
                                         //res.send(nickname + '<br />' + email + '<br />' + password);
-                                        res.redirect('/auth/login')
+                                        res.redirect('/auth/signup_success')
                                     }
                                 });
                             });
@@ -226,6 +241,15 @@ router.post('/signup/process', function(req, res, next){
             });
         }
     });
+});
+
+router.get('/signup_success', function(req, res, next) {
+    res.render('signup_after', {isLogined: false});
+});
+
+router.get('/signupError:num', function(req, res, next) {
+    var num = req.params.num;
+    res.render('signupError', {status : num});
 });
 
 module.exports = router;

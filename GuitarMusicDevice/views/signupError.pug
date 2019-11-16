@@ -1,0 +1,14 @@
+doctype html
+html(lang='en')
+  head
+    meta(charset='UTF-8')
+    title 회원가입 에러
+    if(status == 1)
+        script.
+            alert("이미 존재하는 별명입니다. 사용하실 수 없습니다.");
+            window.location.href="/auth/signup"
+    else if (status == 2)
+        script.
+            alert("이미 존재하는 이메일입니다. 사용하실 수 없습니다.");
+            window.location.href="/auth/signup"
+  body
