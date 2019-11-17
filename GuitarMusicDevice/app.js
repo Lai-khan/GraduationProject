@@ -6,6 +6,8 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var session = require('express-session');
 var FileStore = require('session-file-store')(session);
+var helmet = require('helmet');
+var hpp = require('hpp');
 
 // declare router
 var indexRouter = require('./routes/index');
@@ -28,6 +30,10 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(helmet());
+app.use(helmet.noCache());
+app.use(helmet.referrerPolicy({ policy: 'same-origin' }));
+app.use(hpp());
 
 // session handler
 app.use(session({
