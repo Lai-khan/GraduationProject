@@ -12,8 +12,8 @@ router.get('/sheet/:page', function(req, res, next) {
     var url = "/mypage/sheet/"
     var sql = `SELECT idx, title, date_format(updateDate,'%Y-%m-%d') updateDate
     FROM board
-    WHERE name = "${name}"`;
-    db.query(sql, function(err, result) {
+    WHERE name = ?`;
+    db.query(sql, [name], function(err, result) {
         if(err) next(err);
         else {
             console.log(result);
@@ -25,8 +25,8 @@ router.get('/sheet/:page', function(req, res, next) {
 router.post('/delete_process', function(req, res, next) {
     var post = req.body;
     var idx = post.idx;
-    var sql1 = `SELECT * FROM music WHERE idx = ${idx}`;
-    db.query(sql1, function(err1, rows){
+    var sql1 = `SELECT * FROM music WHERE idx = ?`;
+    db.query(sql1, [idx], function(err1, rows){
         if(err1) next(err1);
         if(rows.length == 0){
             // 검색 결과 없음
@@ -40,13 +40,13 @@ router.post('/delete_process', function(req, res, next) {
             fs.unlink('./public/files/' + filename, function(err){
                 if(err) next(err);
 
-                var sql2 = `DELETE FROM music WHERE idx = ${idx}`;
-                var sql3 = `DELETE FROM board WHERE idx = ${idx}`;
-                db.query(sql2, function(err2, result2) {
+                var sql2 = `DELETE FROM music WHERE idx = ?`;
+                var sql3 = `DELETE FROM board WHERE idx = ?`;
+                db.query(sql2, [idx], function(err2, result2) {
                     if(err2) next(err2);
                     else {
                         console.log(result2);
-                        db.query(sql3, function(err3, result3) {
+                        db.query(sql3, [idx], function(err3, result3) {
                             if(err3) next(err3);
                             else {
                                 console.log(result3);
@@ -71,10 +71,10 @@ router.post('/info/process', function(req, res, next) {
 
     var sql = `
     SELECT * FROM userlist
-    WHERE nickname='${req.session.user_id}'
+    WHERE nickname=?
     `
 
-    db.query(sql, function(err, rows){
+    db.query(sql, [req.session.user_id], function(err, rows){
         if(err) next(err);
         if(MODE_DEBUG){
             console.log(rows);
@@ -108,10 +108,10 @@ router.get('/info/myinfo', function(req, res, next) {
     // select로 user_id 검색해서 id랑 email 변수로 보내고, pug 수정
     var sql = `
     SELECT * FROM userlist
-    WHERE nickname='${req.session.user_id}'
+    WHERE nickname=?
     `;
 
-    db.query(sql, function(err, rows){
+    db.query(sql, [req.session.user_id], function(err, rows){
         if(err) next(err);
         if(MODE_DEBUG){
             console.log(rows);
@@ -144,10 +144,10 @@ router.post('/leave_really', function(req, res, next) {
 
     var sql = `
     SELECT * FROM userlist
-    WHERE nickname='${req.session.user_id}'
+    WHERE nickname=?
     `
 
-    db.query(sql, function(err, rows){
+    db.query(sql, [req.session.user_id], function(err, rows){
         if(err) next(err);
         if(MODE_DEBUG){
             console.log(rows);
@@ -198,19 +198,19 @@ router.post('/leave_process', function(req, res, next) {
     var sql = `
     UPDATE userlist
     SET password="", salt="" 
-    WHERE nickname="${req.session.user_id}"
+    WHERE nickname=?
     `
 
-    db.query(sql, function(err){
+    db.query(sql, [req.session.user_id], function(err){
         if(err) next(err);
 
         sql = `
         UPDATE board
-        SET name="${newNickname}"
-        WHERE name="${req.session.user_id}"
+        SET name=? 
+        WHERE name=?
         `
 
-        db.query(sql, function(err){
+        db.query(sql, [newNickname, req.session.user_id], function(err){
             if(err) next(err);
 
             req.session.destroy();

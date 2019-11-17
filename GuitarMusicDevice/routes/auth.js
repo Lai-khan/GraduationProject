@@ -63,12 +63,12 @@ router.post('/login/process', function(req, res, next) {
     var sql = `
     SELECT * 
     FROM userlist
-    WHERE nickname='${nickname}'
-    OR email='${nickname}'
+    WHERE nickname=? 
+    OR email=?
     `;
 
     // inserting into sql
-    db.query(sql, function(err, rows) {
+    db.query(sql, [nickname, nickname], function(err, rows) {
         if(err) next(err);
         if(MODE_DEBUG){
             console.log(rows);
@@ -156,11 +156,11 @@ router.post('/signup/process', function(req, res, next){
     let sql = `
     SELECT * 
     FROM userlist
-    WHERE nickname='${nickname}'
+    WHERE nickname=?
     `;
 
     // inserting into sql
-    db.query(sql, function(err, rows) {
+    db.query(sql, [nickname], function(err, rows) {
         if(err) next(err);
         else if(rows.length){
             if(MODE_DEBUG){
@@ -177,10 +177,10 @@ router.post('/signup/process', function(req, res, next){
             sql = `
             SELECT * 
             FROM userlist
-            WHERE email='${email}'
+            WHERE email=?
             `;
 
-            db.query(sql, function(err, rows){
+            db.query(sql, [email], function(err, rows){
                 if(err) next(err);
                 else if(rows.length){
                     if(MODE_DEBUG){
@@ -219,11 +219,11 @@ router.post('/signup/process', function(req, res, next){
                                 // sql query
                                 sql = `
                                 INSERT INTO userlist(nickname, email, password, salt)
-                                VALUES('${nickname}', '${email}', '${encryptedPassword}', '${salt}')
+                                VALUES(?, ?, ?, ?)
                                 `;
                             
                                 // inserting into sql
-                                db.query(sql, function(err, result) {
+                                db.query(sql, [nickname, email, encryptedPassword, salt], function(err, result) {
                                     if(err) next(err)
                                     else {
                                         if(MODE_DEBUG){

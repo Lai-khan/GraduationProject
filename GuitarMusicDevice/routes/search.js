@@ -8,13 +8,14 @@ router.get('/:page', function(req, res, next) {
     else
         var login = false;
     var search = req.param("search");
+    var sqlSearch = "%" + search + "%";
     var page = req.params.page;
     var url = '/search/';
     var sql = `
     SELECT idx, title, name, date_format(updateDate,'%Y-%m-%d') updateDate 
     FROM board 
-    WHERE title LIKE "%${search}%" OR name LIKE "%${search}%"`;
-    db.query(sql, function(err, result) {
+    WHERE title LIKE ? OR name LIKE ?`;
+    db.query(sql, [sqlSearch, sqlSearch], function(err, result) {
         if(err) next(err)
         else {
             console.log(result);
