@@ -79,6 +79,13 @@ const isCharAlphabetical = (c) => {
 	else return false;
 }
 
+const isKorean = (c) => {
+    if(
+        44032 <= c.charCodeAt() && c.charCodeAt() <= 55215
+    ) return true;
+    else return false;
+}
+
 const isCharNumerical = (c) => {
 	if(
 		('0'.charCodeAt() <= c.charCodeAt() && c.charCodeAt() <= '9'.charCodeAt())
@@ -91,7 +98,8 @@ const isCharNumerical = (c) => {
 const isNormalCharValid = (c) => {
 	if(
 		isCharAlphabetical(c) ||
-		isCharNumerical(c)
+		isCharNumerical(c) ||
+		isKorean(c)
 	) return true;
 	else return false;
 }
