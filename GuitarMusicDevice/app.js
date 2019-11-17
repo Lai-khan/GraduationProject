@@ -37,7 +37,7 @@ app.use(hpp());
 
 // session handler
 app.use(session({
-  secret: 'IN MODERN WAR... YOU WILL DIE LIKE A DOG FOR NO GOOD REASON',
+  secret: process.env.SESSION_KEY,
   resave: false,
   saveUninitialized: true,
   store: new FileStore()
