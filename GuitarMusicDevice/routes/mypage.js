@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 var db = require('../lib/mysql');
 var crypto = require('crypto');
+var fs = require('fs');
 
 var MODE_DEBUG = true;
 
@@ -25,18 +26,36 @@ router.post('/delete_process', function(req, res, next) {
     var post = req.body;
     var idx = post.idx;
     // sql로 filename 알아내고 -> 파일 삭제 (채민석 담당)
-    var sql1 = `DELETE FROM music WHERE idx = ${idx}`;
-    var sql2 = `DELETE FROM board WHERE idx = ${idx}`;
-    db.query(sql1, function(err1, result1) {
-        if(err1) next(err1);
-        else {
-            console.log(result1);
-            db.query(sql2, function(err2, result2) {
-                if(err2) next(err2);
-                else {
-                    console.log(result2);
-                    res.redirect('/mypage/sheet/1');
-                }
+    var sql = `SELECT * FROM music WHERE idx = ${idx}`;
+    db.query(sql, function(err, rows){
+        if(err) next(err);
+        if(rows.length == 0){
+            // 검색 결과 없음
+        }else{
+            // 파일이름 조회 및 fs로 삭제
+            var filename = rows[0]["filename"];
+            if(MODE_DEBUG){
+                console.log("filename: " + filename);
+            }
+
+            fs.unlink('./public/files/' + filename, function(err){
+                if(err) next(err);
+
+                var sql1 = `DELETE FROM music WHERE idx = ${idx}`;
+                var sql2 = `DELETE FROM board WHERE idx = ${idx}`;
+                db.query(sql1, function(err1, result1) {
+                    if(err1) next(err1);
+                    else {
+                        console.log(result1);
+                        db.query(sql2, function(err2, result2) {
+                            if(err2) next(err2);
+                            else {
+                                console.log(result2);
+                                res.redirect('/mypage/sheet/1');
+                            }
+                        })
+                    }
+                })
             })
         }
     })
