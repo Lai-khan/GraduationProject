@@ -16,6 +16,10 @@ html
                     li
                         a.navbar-item(href='/mypage/leave') 회원탈퇴
             .main
+                if (state === "info")
+                    h1.title 회원정보
+                else if (state === "leave")
+                    h1.title 회원탈퇴
                 .sub
                     if (state === "info")
                         - var action = "/mypage/info/process"

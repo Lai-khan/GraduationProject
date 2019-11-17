@@ -18,6 +18,10 @@
     margin-left: 180px;
 }
 
+h1.title {
+    text-align: center;
+}
+
 .sub {
     padding-top: 100px;
 }

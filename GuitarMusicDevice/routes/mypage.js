@@ -25,10 +25,9 @@ router.get('/sheet/:page', function(req, res, next) {
 router.post('/delete_process', function(req, res, next) {
     var post = req.body;
     var idx = post.idx;
-    // sql로 filename 알아내고 -> 파일 삭제 (채민석 담당)
-    var sql = `SELECT * FROM music WHERE idx = ${idx}`;
-    db.query(sql, function(err, rows){
-        if(err) next(err);
+    var sql1 = `SELECT * FROM music WHERE idx = ${idx}`;
+    db.query(sql1, function(err1, rows){
+        if(err1) next(err1);
         if(rows.length == 0){
             // 검색 결과 없음
         }else{
@@ -41,16 +40,16 @@ router.post('/delete_process', function(req, res, next) {
             fs.unlink('./public/files/' + filename, function(err){
                 if(err) next(err);
 
-                var sql1 = `DELETE FROM music WHERE idx = ${idx}`;
-                var sql2 = `DELETE FROM board WHERE idx = ${idx}`;
-                db.query(sql1, function(err1, result1) {
-                    if(err1) next(err1);
+                var sql2 = `DELETE FROM music WHERE idx = ${idx}`;
+                var sql3 = `DELETE FROM board WHERE idx = ${idx}`;
+                db.query(sql2, function(err2, result2) {
+                    if(err2) next(err2);
                     else {
-                        console.log(result1);
-                        db.query(sql2, function(err2, result2) {
-                            if(err2) next(err2);
+                        console.log(result2);
+                        db.query(sql3, function(err3, result3) {
+                            if(err3) next(err3);
                             else {
-                                console.log(result2);
+                                console.log(result3);
                                 res.redirect('/mypage/sheet/1');
                             }
                         })
@@ -98,7 +97,7 @@ router.post('/info/process', function(req, res, next) {
                     res.redirect('/mypage/info/myinfo');
                 }else{
                     // wrong pw
-                    res.redirect('/mypage/info');
+                    res.redirect('/mypage/pwError1');
                 }
             });
         }
@@ -173,7 +172,7 @@ router.post('/leave_really', function(req, res, next) {
                     res.render('leave', {isLogined : true});
                 }else{
                     // wrong pw
-                    res.redirect('/mypage/leave');
+                    res.redirect('/mypage/pwError2');
                 }
             });
         }
@@ -198,7 +197,7 @@ router.post('/leave_process', function(req, res, next) {
 
     var sql = `
     UPDATE userlist
-    SET password=""
+    SET password="", salt="" 
     WHERE nickname="${req.session.user_id}"
     `
 
@@ -206,34 +205,29 @@ router.post('/leave_process', function(req, res, next) {
         if(err) next(err);
 
         sql = `
-        UPDATE userlist
-        SET salt=""
-        WHERE nickname="${req.session.user_id}"
+        UPDATE board
+        SET name="${newNickname}"
+        WHERE name="${req.session.user_id}"
         `
 
         db.query(sql, function(err){
             if(err) next(err);
 
-            sql = `
-            UPDATE board
-            SET name="${newNickname}"
-            WHERE name="${req.session.user_id}"
-            `
-
-            db.query(sql, function(err){
-                if(err) next(err);
-
-                req.session.destroy();
-                res.redirect('/');
-            })
-        })
-    })
+            req.session.destroy();
+            res.redirect('/');
+        });
+    });
     // 예
     // 회원 탈퇴 처리하고,
     // board 테이블의 작성자 + '(탈퇴)' 붙이고
     //res.redirect('/');
     // 아니오
     //res.redirect('/mypage/leave');
+});
+
+router.get('/pwError:num', function(req, res, next) {
+    var num = req.params.num;
+    res.render('pwError', {status : num});
 });
 
 module.exports = router;

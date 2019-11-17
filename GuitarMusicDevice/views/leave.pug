@@ -17,10 +17,10 @@ html
                         a.navbar-item(href='/mypage/leave') 회원탈퇴
             .main
                 .sub
-                    form.panel.is-danger(action='', method='post')
+                    form.panel.is-danger(action='/mypage/leave_process', method='post')
                         p.panel-heading.has-text-centered
                             | 정말로 회원탈퇴 하시겠습니까?
                         .field.is-horizontal
-                            button.button.is-danger.is-outlined 예
-                            button.button.is-link.is-outlined 아니오
+                            button.button.is-danger.is-outlined(type="submit") 예
+                            button.button.is-link.is-outlined(onClick="history.back(); return false;") 아니오
     include footer

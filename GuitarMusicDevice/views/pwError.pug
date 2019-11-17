@@ -1,0 +1,14 @@
+doctype html
+html(lang='en')
+  head
+    meta(charset='UTF-8')
+    title 비밀번호 틀림
+    if(status == 1)
+        script.
+            alert("비밀번호가 틀렸습니다.");
+            window.location.href="/mypage/info"
+    else if (status == 2)
+        script.
+            alert("비밀번호가 틀렸습니다.");
+            window.location.href="/mypage/leave"
+  body

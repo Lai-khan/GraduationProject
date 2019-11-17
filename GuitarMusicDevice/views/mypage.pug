@@ -45,7 +45,7 @@ html
                                     a(href='/guitar/'+link) #{data.title}
                                 td #{data.updateDate}
                                 td
-                                    form(action='/mypage/delete_process', method='post')
+                                    form(onsubmit="return check()", action='/mypage/delete_process', method='post')
                                         input(type='hidden', name="idx", value=data.idx)
                                         button.delete(type='submit')
                     - var pageNum = parseInt(list.length / page_num);
@@ -111,3 +111,4 @@ html
                                         li
                                             a.pagination-link(href=hrefURL) #{i+1}
     include footer
+    script(type='text/javascript', src='/javascripts/check.js')
