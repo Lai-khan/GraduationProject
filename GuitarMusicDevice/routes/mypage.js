@@ -65,7 +65,7 @@ router.get('/info', function(req, res, next) {
     res.render('inputPW', {isLogined : true, state : state});
 });
 
-router.post('/info/process', function(req, res, next) {
+router.post('/info/myinfo', function(req, res, next) {
     // password = session.id로 검색한 userlist의 비번과 같은가
     var password = req.body.password;
 
@@ -94,7 +94,29 @@ router.post('/info/process', function(req, res, next) {
                 }
                 if(encpw == key.toString('base64')){
                     // right data
-                    res.redirect('/mypage/info/myinfo');
+                    var sql = `
+                    SELECT * FROM userlist
+                    WHERE nickname=?
+                    `;
+
+                    db.query(sql, [req.session.user_id], function(err, rows){
+                        if(err) next(err);
+                        if(MODE_DEBUG){
+                            console.log(rows);
+                            console.log("rows.length: " + rows.length);
+                        }
+                        if(rows.length == 0){
+                            // no matching email/nickname
+                            // this should not be happen
+                            res.send("unexpected error: call administrator to handle this.");
+                        }else{
+                            var id = rows[0]["nickname"];
+                            var email = rows[0]["email"];
+
+                            // 이 값을 통해 수정
+                            res.render('info', {isLogined : true, id : id, email : email});
+                        }
+                    })
                 }else{
                     // wrong pw
                     res.redirect('/mypage/pwError1');
@@ -102,34 +124,6 @@ router.post('/info/process', function(req, res, next) {
             });
         }
     });
-});
-
-router.get('/info/myinfo', function(req, res, next) {
-    // select로 user_id 검색해서 id랑 email 변수로 보내고, pug 수정
-    var sql = `
-    SELECT * FROM userlist
-    WHERE nickname=?
-    `;
-
-    db.query(sql, [req.session.user_id], function(err, rows){
-        if(err) next(err);
-        if(MODE_DEBUG){
-            console.log(rows);
-            console.log("rows.length: " + rows.length);
-        }
-        if(rows.length == 0){
-            // no matching email/nickname
-            // this should not be happen
-            res.send("unexpected error: call administrator to handle this.");
-        }else{
-            var id = rows[0]["nickname"];
-            var email = rows[0]["email"];
-
-            // 이 값을 통해 수정
-            res.render('info', {isLogined : true, id : id, email : email});
-        }
-    //res.render('info', {isLogined : true});
-    })
 });
 
 router.get('/leave', function(req, res, next) {
@@ -192,7 +186,7 @@ router.post('/leave_process', function(req, res, next) {
     // 3.0 remember "req.session.user_id + (탈퇴)"
     // 3. update userlist set nickname="${req.session.user_id} where nickname="${req.session.user_id}""
 
-    console.log("leav_process");
+    console.log("leave_process");
     var newNickname = req.session.user_id + " (탈퇴)";
 
     var sql = `

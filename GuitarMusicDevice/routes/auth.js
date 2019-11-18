@@ -46,7 +46,10 @@ const MSG_SIGNUP_EXIST_NICKNAME = "이미 존재하는 별명입니다. 사용�
 const MSG_SIGNUP_EXIST_EMAIL = "이미 존재하는 이메일입니다. 사용하실 수 없습니다.";
 
 router.get('/login', function(req, res, next) {
-    res.render('login', {isLogined : false});
+    if(req.session.logined)
+        res.redirect('/');
+    else
+        res.render('login', {isLogined : false});
 });
 
 router.post('/login/process', function(req, res, next) {
@@ -119,7 +122,7 @@ router.post('/login/process', function(req, res, next) {
                     req.session.logined = true;
                     req.session.user_id = nickname;
 
-                    res.redirect("/");
+                    res.redirect('/');
                 }else{
                     // wrong password or id 로그인 실패
                     if(MODE_DEBUG){
