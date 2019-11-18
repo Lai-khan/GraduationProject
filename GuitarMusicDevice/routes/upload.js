@@ -81,7 +81,7 @@ router.post('/process', upload.single('gpfile'), function(req, res, next){
             db.query(sql2, [title, req.session.user_id], function(err2, rows) {
                 if(err2) next(err2);
                 console.log("===rows===");
-                console.log(rows)
+                console.log(rows);
                 console.log("==========");
                 var idx = rows[rows.length - 1]["idx"];
                 console.log("idx       : " + idx);

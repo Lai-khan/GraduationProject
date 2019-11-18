@@ -7,7 +7,7 @@ router.get('/:page', function(req, res, next) {
         var login = true;
     else
         var login = false;
-    var search = req.param("search");
+    var search = req.query.search;
     var sqlSearch = "%" + search + "%";
     var page = req.params.page;
     var url = '/search/';
