@@ -17,12 +17,13 @@ html
                         a.navbar-item(href='/mypage/leave') 회원탈퇴
             .main
                 if(list.length == 0)
-                    .none
-                        h1.title.is-center
-                            | 회원님의 악보가 없습니다.
-                        .content
-                            p 포르텝에 악보를 업로드 해보세요
-                            a.button.is-warning(href="/upload") 업로드
+                    .sub
+                        .none
+                            h1.title.is-center
+                                | 회원님의 악보가 없습니다.
+                            .content
+                                p 포르텝에 악보를 업로드 해보세요
+                                a.button.is-warning(href="/upload") 업로드
                 else
                     table.table.is-hoverable
                         thead
