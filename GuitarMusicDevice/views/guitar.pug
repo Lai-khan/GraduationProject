@@ -189,4 +189,13 @@ html
       $('#playPause').removeClass('fa-play').addClass('fa-pause');
       break;
       }
+      var metronomeVolume = at.alphaTab('metronomeVolume');
+      if(metronomeVolume == 0) {
+      at.alphaTab('metronomeVolume', 1);
+      $('#metronome').closest('li').addClass('active');
+      }
+      else {
+      at.alphaTab('metronomeVolume', 0);
+      $('#metronome').closest('li').removeClass('active');
+      }
       }

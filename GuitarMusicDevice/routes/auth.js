@@ -138,17 +138,16 @@ router.post('/login/process', function(req, res, next) {
     })
 });
 
-router.get('/loginError', function(req, res, next) {
-    res.render('loginError');
-});
-
 router.get('/logout', function(req, res, next) {
     req.session.destroy();
     res.redirect('/');
 });
 
 router.get('/signup', function(req, res, next) {
-    res.render('signup', {isLogined : false});
+    if(req.session.logined)
+        res.redirect('/');
+    else
+        res.render('signup', {isLogined : false});
 });
 
 router.post('/signup/process', function(req, res, next){
@@ -174,7 +173,7 @@ router.post('/signup/process', function(req, res, next){
             }
             
             //alert(MSG_SIGNUP_EXIST_NICKNAME);
-            res.redirect('/auth/signupError1');
+            res.render('signupError', {status : 1});
         }else{
 
             sql = `
@@ -193,7 +192,7 @@ router.post('/signup/process', function(req, res, next){
                         console.log("already have an email.");
                     }
                     //alert(MSG_SIGNUP_EXIST_EMAIL);
-                    res.redirect('/auth/signupError2');
+                    res.render('signupError', {status : 2});
                 }else{
                     // OK ROUTE
                     if(MODE_DEBUG){
@@ -234,7 +233,7 @@ router.post('/signup/process', function(req, res, next){
                                         }
                                         // 차후 적용: // res.redirect('/auth/signup', {isOk?});
                                         //res.send(nickname + '<br />' + email + '<br />' + password);
-                                        res.redirect('/auth/signup_success')
+                                        res.render('signup_after', {isLogined: false});
                                     }
                                 });
                             });
@@ -244,15 +243,6 @@ router.post('/signup/process', function(req, res, next){
             });
         }
     });
-});
-
-router.get('/signup_success', function(req, res, next) {
-    res.render('signup_after', {isLogined: false});
-});
-
-router.get('/signupError:num', function(req, res, next) {
-    var num = req.params.num;
-    res.render('signupError', {status : num});
 });
 
 module.exports = router;
