@@ -25,7 +25,7 @@
 
 ### (1) 구성도
 
-
+<img src="./GuitarMusicDevice/public/images/구성도.png"></img>
 
 ### (2) 주요 기능 및 설명
 
